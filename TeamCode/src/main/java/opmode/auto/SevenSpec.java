@@ -28,7 +28,7 @@ public class SevenSpec extends OpModeCommand {
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SevenSpec.start, true, 2);
         r.getI().init();
-        r.getO().specimenScore0();
+        r.getO().sevenInit();
         r.getO().close();
         r.getE().toZero();
         r.getT().addData("init", true);

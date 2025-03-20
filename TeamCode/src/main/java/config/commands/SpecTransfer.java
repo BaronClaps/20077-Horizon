@@ -53,16 +53,16 @@ public class SpecTransfer extends CommandBase {
                 else
                     temp = 0;
 
-                if (timer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
+                if (timer.getElapsedTimeSeconds() > 0.2 && temp == 0) {
                     robot.getO().close();
                     setState(4);
-                } else if (timer.getElapsedTimeSeconds() > 0.65 && temp == 1) {
+                } else if (timer.getElapsedTimeSeconds() > 0.45 && temp == 1) {
                     robot.getO().close();
                     setState(4);
                 }
                 break;
             case 4:
-                if (timer.getElapsedTimeSeconds() > 0.35) {
+                if (timer.getElapsedTimeSeconds() > 0.25) {
                     robot.getI().open();
                     setState(5);
                 }
@@ -71,6 +71,11 @@ public class SpecTransfer extends CommandBase {
                 if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getO().score();
                     robot.getI().hover();
+                    setState(6);
+                }
+                break;
+            case 6:
+                if (timer.getElapsedTimeSeconds() > 0.2) {
                     setState(-1);
                 }
                 break;
