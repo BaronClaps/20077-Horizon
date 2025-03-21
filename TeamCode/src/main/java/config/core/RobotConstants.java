@@ -40,8 +40,8 @@ public class RobotConstants {
     public static double intakePivotCloud = 0.6;
     public static double intakePivotSpecimen = 0;
     public static double intakeRotatePerDegree = 0.0011;
-    public static double intakePivotDrag = 1;
-    public static double intakeRotateDrag = 0.29;
+    public static double intakePivotDrag = 0.98;
+    public static double intakeRotateDrag = 0.26;
 
     // Lift Positions
     public static int liftToZero = 10;
