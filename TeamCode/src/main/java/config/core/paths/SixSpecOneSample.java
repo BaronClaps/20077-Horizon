@@ -37,7 +37,7 @@ public class SixSpecOneSample {
                         )
                 )
                 .setConstantHeadingInterpolation(start.getHeading())
-                .setZeroPowerAccelerationMultiplier(4)
+                .setZeroPowerAccelerationMultiplier(2)
                 .build();
     }
 
@@ -85,7 +85,7 @@ public class SixSpecOneSample {
                         // Line 1
                         new BezierLine(
                                 new Point(deposit2Drag),
-                                new Point(34.500, 45.000, Point.CARTESIAN)
+                                new Point(34.500, 47.000, Point.CARTESIAN)
                         )
                 )
                 .setLinearHeadingInterpolation(deposit2Drag.getHeading(), Math.toRadians(305))
@@ -98,8 +98,8 @@ public class SixSpecOneSample {
                 .addPath(
                         // Line 2
                         new BezierLine(
-                                new Point(34.500, 45.000, Point.CARTESIAN),
-                                new Point(29.500, 41.500, Point.CARTESIAN)
+                                new Point(34.500, 47.000, Point.CARTESIAN),
+                                new Point(29.500, 43.500, Point.CARTESIAN)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(225))
@@ -113,7 +113,7 @@ public class SixSpecOneSample {
                 .addPath(
                         // Line 3
                         new BezierLine(
-                                new Point(29.500, 41.500, Point.CARTESIAN),
+                                new Point(29.500, 43.500, Point.CARTESIAN),
                                 new Point(34.000, 36.500, Point.CARTESIAN)
                         )
                 )
