@@ -152,6 +152,14 @@ public class Outtake {
         setGrabState(GrabState.OPEN);
     }
 
+    public void specimenGrab180Yellow() {
+        setRotateState(RotateState.SPECIMENGRAB180);
+        setPivotState(PivotState.SPECIMENGRAB180);
+        setGrabState(GrabState.OPEN);
+        leftPivot.setPosition(outtakePivotSpecimenGrab180 + 0.02);
+        rightPivot.setPosition(outtakePivotSpecimenGrab180 + 0.02);
+    }
+
     public void specGrab() {
         switch(specGrabState) {
             case 0:
@@ -210,7 +218,7 @@ public class Outtake {
                 }
                 break;
             case 2:
-                if(specScoreTimer.getElapsedTimeSeconds() > 0.25) {
+                if(specScoreTimer.getElapsedTimeSeconds() > 0.18) {
                     setRotateState(RotateState.SPECIMENGRAB180);
                     setPivotState(PivotState.SPECIMENGRAB180);
                     setSpecGrabState(-1);
@@ -253,6 +261,14 @@ public class Outtake {
         setRotateState(RotateState.SPECIMENSCORE0);
         setPivotState(PivotState.SPECIMENSCORE0);
         setGrabState(GrabState.CLOSED);
+    }
+
+    public void specimenScore0After() {
+        specimenScore0();
+        leftPivot.setPosition(outtakePivotSpecimenScore0After);
+        rightPivot.setPosition(outtakePivotSpecimenScore0After);
+        leftRotate.setPosition(outtakeRotateSpecimenScore0After+0.045);
+        rightRotate.setPosition(outtakeRotateSpecimenScore0After);
     }
 
     public void init() {

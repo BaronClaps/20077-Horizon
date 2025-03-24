@@ -12,20 +12,20 @@ import org.opencv.core.Mat;
 public class SixSpecOneSample {
 
     public static Pose start = new Pose(8, 65.5, Math.toRadians(0));
-    public static Pose score1 = new Pose(42.75, 72, Math.toRadians(0));
+    public static Pose score1 = new Pose(43, 72, Math.toRadians(0));
     public static Pose sub2 = new Pose(25 + (13 * 1.181), 72, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2Drag = new Pose(24, 48, Math.toRadians(245));
-    public static Pose grab2Drag = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab2Drag = new Pose(9.25, 36, Math.toRadians(180));
     public static Pose score2 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab3 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab3 = new Pose(9.25, 37, Math.toRadians(180));
     public static Pose score3 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab4 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab4 = new Pose(9.25, 37, Math.toRadians(180));
     public static Pose score4 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab5 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab5 = new Pose(9.25, 37, Math.toRadians(180));
     public static Pose score5 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab6 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab6 = new Pose(9.25, 37, Math.toRadians(180));
     public static Pose score6 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab7 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab7 = new Pose(9.25, 37, Math.toRadians(180));
     public static Pose score7 = new Pose(7.5, 123, Math.toRadians(270));
 
     public static PathChain score1() {
@@ -37,7 +37,7 @@ public class SixSpecOneSample {
                         )
                 )
                 .setConstantHeadingInterpolation(start.getHeading())
-                .setZeroPowerAccelerationMultiplier(2)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -99,10 +99,10 @@ public class SixSpecOneSample {
                         // Line 2
                         new BezierLine(
                                 new Point(34.500, 47.000, Point.CARTESIAN),
-                                new Point(29.500, 43.500, Point.CARTESIAN)
+                                new Point(29.500, 45.500, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(225))
+                .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(260))
                 .setZeroPowerAccelerationMultiplier(8)
                 .build();
 
@@ -113,11 +113,11 @@ public class SixSpecOneSample {
                 .addPath(
                         // Line 3
                         new BezierLine(
-                                new Point(29.500, 43.500, Point.CARTESIAN),
+                                new Point(29.500, 45.500, Point.CARTESIAN),
                                 new Point(34.000, 36.500, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(305))
+                .setLinearHeadingInterpolation(Math.toRadians(260), Math.toRadians(305))
                 .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
@@ -128,10 +128,10 @@ public class SixSpecOneSample {
                         // Line 4
                         new BezierLine(
                                 new Point(34.000, 36.500, Point.CARTESIAN),
-                                new Point(29.500, 32.50, Point.CARTESIAN)
+                                new Point(29.500, 36.50, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(225))
+                .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(250))
                 .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
@@ -141,11 +141,11 @@ public class SixSpecOneSample {
                 .addPath(
                         // Line 5
                         new BezierLine(
-                                new Point(29.500, 32.50, Point.CARTESIAN),
-                                new Point(36.000, 26.000, Point.CARTESIAN)
+                                new Point(29.500, 36.50, Point.CARTESIAN),
+                                new Point(36.000, 25.000, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(315))
+                .setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(315))
                 .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
@@ -155,11 +155,11 @@ public class SixSpecOneSample {
                 .addPath(
                         // Line 6
                         new BezierLine(
-                                new Point(36.000, 26.000, Point.CARTESIAN),
-                                new Point(27.000, 30.000, Point.CARTESIAN)
+                                new Point(36.000, 25.000, Point.CARTESIAN),
+                                new Point(27.000, 29.000, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(315), Math.toRadians(225))
+                .setLinearHeadingInterpolation(Math.toRadians(315), Math.toRadians(250))
                 .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
@@ -168,12 +168,12 @@ public class SixSpecOneSample {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(27, 30, Point.CARTESIAN),
+                                new Point(27, 29, Point.CARTESIAN),
                                 new Point(grab2Drag.getX() + 10, grab2Drag.getY()),
                                 new Point(grab2Drag)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(225), Math.toRadians(180))
+                .setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(180))
                 .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
@@ -402,7 +402,7 @@ public class SixSpecOneSample {
                                 score7
                         )
                 )
-                .setZeroPowerAccelerationMultiplier(6)
+                .setZeroPowerAccelerationMultiplier(8)
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270), 0.3)
                 .build();
     }

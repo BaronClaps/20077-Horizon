@@ -39,7 +39,7 @@ public class SixSpecOneSample extends OpModeCommand {
                 new SequentialCommandGroup(
                         new ForwardChamber(r)
                                 .alongWith(
-                                        new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score1())
+                                        new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score1()).setCompletionThreshold(0.975)
                                                 .andThen(
                                                         new InstantCommand(() -> r.getI().cloud())
                                                 ),
@@ -159,7 +159,7 @@ public class SixSpecOneSample extends OpModeCommand {
                                         )
                         ),
                         new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.grab7(), true, 1),
-                        new InstantCommand(() -> r.getO().close())
+                        new InstantCommand(() -> { r.getO().close(); r.getO().specimenGrab180Yellow();})
                                 .andThen(
                                         new WaitCommand(250),
                                         new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score7(), true, 1).setCompletionThreshold(0.975)

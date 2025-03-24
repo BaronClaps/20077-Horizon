@@ -39,19 +39,15 @@ public class ForwardChamber extends CommandBase {
                 }
                 break;
             case 2:
-                if (!robot.getF().isBusy()) {
-                    robot.getL().toZero();
+                if (robot.getF().getCurrentTValue() > 0.925) {
+                    robot.getO().specimenScore0After();
                     setState(3);
                 }
                 break;
             case 3:
-                if (robot.getL().getPos() <= 100) {
+                if (timer.getElapsedTimeSeconds() > 0.35) {
                     robot.getO().open();
-                    setState(4);
-                }
-                break;
-            case 4:
-                if (timer.getElapsedTimeSeconds() > 0.25) {
+                    robot.getL().toZero();
                     setState(-1);
                 }
                 break;

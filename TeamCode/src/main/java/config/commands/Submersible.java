@@ -42,17 +42,22 @@ public class Submersible extends CommandBase {
             case 2:
                 if(timer.getElapsedTimeSeconds() > 0.25 || alrCloud) {
                     robot.getI().ground();
-                    robot.getI().close();
                     setState(3);
                 }
                 break;
             case 3:
-                if (timer.getElapsedTimeSeconds() > 0.2) {
-                    robot.getI().hover();
+                if (timer.getElapsedTimeSeconds() > 0.1) {
+                    robot.getI().close();
                     setState(4);
                 }
                 break;
             case 4:
+                if (timer.getElapsedTimeSeconds() > 0.2) {
+                    robot.getI().hover();
+                    setState(5);
+                }
+                break;
+            case 5:
                 if (timer.getElapsedTimeSeconds() > 0.1) {
                     robot.getE().toZero();
                     setState(-1);
