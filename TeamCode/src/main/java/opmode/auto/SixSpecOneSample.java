@@ -48,6 +48,10 @@ public class SixSpecOneSample extends OpModeCommand {
                                                                     r.getE().toFull();
                                                                 }
                                                         )
+                                                ),
+                                        new WaitCommand(750)
+                                                .andThen(
+                                                        new InstantCommand(() -> r.getI().cloud())
                                                 )
                                 ),
                         new AlignSixSpecOneSample(r, r.getM().getManualPoses().get(0))

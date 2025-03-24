@@ -4,12 +4,14 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
 import config.core.Robot;
+import config.subsystems.Intake;
 
 public class Submersible extends CommandBase {
     private final Robot robot;
 
     private int state = 0;
     private Timer timer = new Timer();
+    private boolean alrCloud = false;
 
     public Submersible(Robot robot) {
         this.robot = robot;
@@ -26,13 +28,19 @@ public class Submersible extends CommandBase {
         robot.getT().update();
         switch (state) {
             case 1:
-                robot.getI().cloud();
-                robot.getI().open();
-                robot.getO().transfer();
-                setState(2);
+                if(!(robot.getI().pivotState == Intake.PivotState.CLOUD)) {
+                    robot.getI().cloud();
+                    robot.getI().open();
+                    alrCloud = false;
+                    setState(2);
+                } else {
+                    alrCloud = true;
+                    setState(2);
+                }
+
                 break;
             case 2:
-                if(timer.getElapsedTimeSeconds() > 0.25) {
+                if(timer.getElapsedTimeSeconds() > 0.25 || alrCloud) {
                     robot.getI().ground();
                     robot.getI().close();
                     setState(3);

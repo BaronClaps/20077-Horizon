@@ -268,8 +268,8 @@ public class Outtake {
     public void sevenInit() {
         setRotateState(RotateState.SPECIMENSCORE0);
         setPivotState(PivotState.SPECIMENSCORE0);
-        leftPivot.setPosition(outtakePivotSpecimenScore0+0.025);
-        rightPivot.setPosition(outtakePivotSpecimenScore0+0.025);
+        leftPivot.setPosition(outtakePivotSpecimenScore0+0.075);
+        rightPivot.setPosition(outtakePivotSpecimenScore0+0.075);
         setGrabState(GrabState.CLOSED);
     }
 
