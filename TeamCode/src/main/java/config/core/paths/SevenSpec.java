@@ -12,24 +12,24 @@ import org.opencv.core.Mat;
 public class SevenSpec {
 
     public static Pose start = new Pose(8, 65.5, Math.toRadians(0));
-    public static Pose score1 = new Pose(42.75, 72 + (-5 * 1.181), Math.toRadians(0));
-    public static Pose sub2 = new Pose(25 + (13 * 1.181), 72 + (-5 * 1.181), Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
+    public static Pose score1 = new Pose(43, 72 + (-2.5 * 1.181), Math.toRadians(0));
+    public static Pose sub2 = new Pose(25 + (13 * 1.181), 72 + (-2.5 * 1.181), Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2 = new Pose(21,25.75, Math.toRadians(0));
     public static Pose grab2 = new Pose(17.5, 25.75, Math.toRadians(0));
-    public static Pose score2 = new Pose(43.25, 72, Math.toRadians(0));
+    public static Pose score2 = new Pose(43, 72, Math.toRadians(0));
     public static Pose sub3 = new Pose(25 + (13* 1.181), 72, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit3 = new Pose(32,36, Math.toRadians(180));
     public static Pose deposit3Drag = new Pose(24, 48, Math.toRadians(245));
-    public static Pose grab3Drag = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose grab3 = new Pose(7.75, 16, Math.toRadians(180));
+    public static Pose grab3Drag = new Pose(9.25, 36, Math.toRadians(180));
+    public static Pose grab3 = new Pose(9.25, 16, Math.toRadians(180));
     public static Pose score3 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab4 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab4 = new Pose(9.25, 36, Math.toRadians(180));
     public static Pose score4 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab5 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab5 = new Pose(9.25, 36, Math.toRadians(180));
     public static Pose score5 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab6 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab6 = new Pose(9.25, 36, Math.toRadians(180));
     public static Pose score6 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab7 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose grab7 = new Pose(9.25, 36, Math.toRadians(180));
     public static Pose score7 = new Pose(39, 66, Math.toRadians(270));
     public static Pose park = new Pose(24,48, Math.toRadians(225));
 
@@ -42,7 +42,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(start.getHeading())
-                .setZeroPowerAccelerationMultiplier(2)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -64,7 +64,7 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(new BezierCurve(sub2, new Pose(sub2.getX() - 10, sub2.getY() + 10), deposit2))
                 .setLinearHeadingInterpolation(sub2.getHeading(), deposit2.getHeading())
-                .setZeroPowerAccelerationMultiplier(4)
+                .setZeroPowerAccelerationMultiplier(6)
                 .build();
     }
 
@@ -77,6 +77,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(deposit2.getHeading())
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -89,7 +90,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(grab2.getHeading())
-                .setZeroPowerAccelerationMultiplier(3)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -127,7 +128,7 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(new BezierCurve(sub3, new Pose(sub3.getX() - 10, sub3.getY() + 10), deposit3Drag))
                 .setLinearHeadingInterpolation(sub3.getHeading(), deposit3Drag.getHeading())
-                .setZeroPowerAccelerationMultiplier(4)
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -137,11 +138,11 @@ public class SevenSpec {
                         // Line 1
                         new BezierLine(
                                 new Point(deposit3Drag),
-                                new Point(36.500, 43.000, Point.CARTESIAN)
+                                new Point(34.500, 47.000, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(deposit2.getHeading(), Math.toRadians(315))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setLinearHeadingInterpolation(deposit3Drag.getHeading(), Math.toRadians(305))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -150,12 +151,12 @@ public class SevenSpec {
                 .addPath(
                         // Line 2
                         new BezierLine(
-                                new Point(36.500, 43.000, Point.CARTESIAN),
-                                new Point(27.500, 42.500, Point.CARTESIAN)
+                                new Point(34.500, 47.000, Point.CARTESIAN),
+                                new Point(29.500, 45.500, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(315), Math.toRadians(250))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(260))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
 
     }
@@ -165,12 +166,12 @@ public class SevenSpec {
                 .addPath(
                         // Line 3
                         new BezierLine(
-                                new Point(27.500, 42.500, Point.CARTESIAN),
-                                new Point(36.000, 35.500, Point.CARTESIAN)
+                                new Point(29.500, 45.500, Point.CARTESIAN),
+                                new Point(34.000, 36.500, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(300))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setLinearHeadingInterpolation(Math.toRadians(260), Math.toRadians(305))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -179,12 +180,12 @@ public class SevenSpec {
                 .addPath(
                         // Line 4
                         new BezierLine(
-                                new Point(36.000, 35.500, Point.CARTESIAN),
-                                new Point(27.750, 34.50, Point.CARTESIAN)
+                                new Point(34.000, 36.500, Point.CARTESIAN),
+                                new Point(29.500, 36.50, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(300), Math.toRadians(250))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(250))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -193,12 +194,12 @@ public class SevenSpec {
                 .addPath(
                         // Line 5
                         new BezierLine(
-                                new Point(27.750, 34.50, Point.CARTESIAN),
-                                new Point(36.000, 27.000, Point.CARTESIAN)
+                                new Point(29.500, 36.50, Point.CARTESIAN),
+                                new Point(36.000, 25.000, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(297))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(315))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -207,12 +208,12 @@ public class SevenSpec {
                 .addPath(
                         // Line 6
                         new BezierLine(
-                                new Point(36.000, 27.000, Point.CARTESIAN),
-                                new Point(27.000, 30.000, Point.CARTESIAN)
+                                new Point(36.000, 25.000, Point.CARTESIAN),
+                                new Point(27.000, 29.000, Point.CARTESIAN)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(297), Math.toRadians(250))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setLinearHeadingInterpolation(Math.toRadians(315), Math.toRadians(250))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -220,13 +221,13 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(27, 30, Point.CARTESIAN),
+                                new Point(27, 29, Point.CARTESIAN),
                                 new Point(grab3Drag.getX() + 10, grab3Drag.getY()),
                                 new Point(grab3Drag)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(2)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -240,7 +241,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -333,7 +334,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(2)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -347,7 +348,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -360,7 +361,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(2)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -374,7 +375,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(6)
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
@@ -387,7 +388,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(2)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -400,7 +401,7 @@ public class SevenSpec {
                                 score6
                         )
                 )
-                .setZeroPowerAccelerationMultiplier(6)
+                .setZeroPowerAccelerationMultiplier(8)
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
     }
@@ -414,7 +415,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
-                .setZeroPowerAccelerationMultiplier(2)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
     }
 
@@ -427,7 +428,7 @@ public class SevenSpec {
                                 score7
                         )
                 )
-                .setZeroPowerAccelerationMultiplier(6)
+                .setZeroPowerAccelerationMultiplier(8)
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .build();
     }
