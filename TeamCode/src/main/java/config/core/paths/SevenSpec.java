@@ -12,24 +12,24 @@ import org.opencv.core.Mat;
 public class SevenSpec {
 
     public static Pose start = new Pose(8, 65.5, Math.toRadians(0));
-    public static Pose score1 = new Pose(43, 72 + (-2.5 * 1.181), Math.toRadians(0));
-    public static Pose sub2 = new Pose(25 + (13 * 1.181), 72 + (-2.5 * 1.181), Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
+    public static Pose score1 = new Pose(43, 72 + (-3 * 1.181), Math.toRadians(0));
+    public static Pose sub2 = new Pose(25 + (13 * 1.181), 72 + (-3 * 1.181), Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2 = new Pose(21,25.75, Math.toRadians(0));
     public static Pose grab2 = new Pose(17.5, 25.75, Math.toRadians(0));
     public static Pose score2 = new Pose(43, 72, Math.toRadians(0));
     public static Pose sub3 = new Pose(25 + (13* 1.181), 72, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit3 = new Pose(32,36, Math.toRadians(180));
     public static Pose deposit3Drag = new Pose(24, 48, Math.toRadians(245));
-    public static Pose grab3Drag = new Pose(9.25, 36, Math.toRadians(180));
-    public static Pose grab3 = new Pose(9.25, 16, Math.toRadians(180));
+    public static Pose grab3Drag = new Pose(10, 36, Math.toRadians(180));
+    public static Pose grab3 = new Pose(10, 36, Math.toRadians(180));
     public static Pose score3 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab4 = new Pose(9.25, 36, Math.toRadians(180));
+    public static Pose grab4 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score4 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab5 = new Pose(9.25, 36, Math.toRadians(180));
+    public static Pose grab5 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score5 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab6 = new Pose(9.25, 36, Math.toRadians(180));
+    public static Pose grab6 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score6 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab7 = new Pose(9.25, 36, Math.toRadians(180));
+    public static Pose grab7 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score7 = new Pose(39, 66, Math.toRadians(270));
     public static Pose park = new Pose(24,48, Math.toRadians(225));
 

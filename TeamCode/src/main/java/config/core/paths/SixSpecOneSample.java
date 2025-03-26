@@ -15,18 +15,18 @@ public class SixSpecOneSample {
     public static Pose score1 = new Pose(43, 72, Math.toRadians(0));
     public static Pose sub2 = new Pose(25 + (13 * 1.181), 72, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2Drag = new Pose(24, 48, Math.toRadians(245));
-    public static Pose grab2Drag = new Pose(9.25, 36, Math.toRadians(180));
+    public static Pose grab2Drag = new Pose(10, 35.5, Math.toRadians(180));
     public static Pose score2 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab3 = new Pose(9.25, 37, Math.toRadians(180));
+    public static Pose grab3 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score3 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab4 = new Pose(9.25, 37, Math.toRadians(180));
+    public static Pose grab4 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score4 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab5 = new Pose(9.25, 37, Math.toRadians(180));
+    public static Pose grab5 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score5 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab6 = new Pose(9.25, 37, Math.toRadians(180));
+    public static Pose grab6 = new Pose(10, 39, Math.toRadians(180));
     public static Pose score6 = new Pose(39, 66, Math.toRadians(180));
-    public static Pose grab7 = new Pose(9.25, 37, Math.toRadians(180));
-    public static Pose score7 = new Pose(7.5, 123, Math.toRadians(270));
+    public static Pose grab7 = new Pose(10, 39, Math.toRadians(180));
+    public static Pose score7 = new Pose(7.5, 121, Math.toRadians(270));
 
     public static PathChain score1() {
         return new PathBuilder()

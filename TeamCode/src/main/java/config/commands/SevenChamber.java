@@ -24,7 +24,7 @@ public class SevenChamber extends CommandBase {
     public void execute() {
         switch (state) {
             case 0:
-                if(timer.getElapsedTimeSeconds() > 0.15) {
+                if(timer.getElapsedTimeSeconds() > 0) {
                     robot.getO().close();
                     setState(1);
                 }

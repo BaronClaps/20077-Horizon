@@ -41,19 +41,12 @@ public class SevenSpec extends OpModeCommand {
                 new SequentialCommandGroup(
                         new ForwardChamber(r)
                                 .alongWith(
-                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.score1())
+                                        new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score1()).setCompletionThreshold(0.975)
                                                 .andThen(
-                                                        new InstantCommand(() -> r.getI().cloud())
+                                                        new InstantCommand(() -> { r.getI().cloud(); r.getE().toFull(); })
                                                 ),
-                                        new WaitCommand(100)
-                                                .andThen(
-                                                        new InstantCommand(
-                                                                () -> {
-                                                                    r.getI().hover();
-                                                                    r.getE().toFull();
-                                                                }
-                                                        )
-                                                )
+                                        new WaitCommand(1000)
+                                                .andThen(new InstantCommand(() -> { r.getI().cloud(); }))
                                 ),
                         new AlignSevenSpecFirst(r, r.getM().getManualPoses().get(0))
                                 .andThen(

@@ -279,7 +279,7 @@ public class Robot {
         }
 
         if (g2.right_stick_button)
-            i.transfer();
+            l.toZero();
 
         if (g2.back) {
             i.drag();

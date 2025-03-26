@@ -27,7 +27,7 @@ public class SixSpecOneSample extends OpModeCommand {
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SixSpecOneSample.start, true, 1);
         r.getI().init();
-        r.getO().specimenScore0();
+        r.getO().sevenInit();
         r.getO().close();
         r.getE().toZero();
         r.getT().addData("init", true);
@@ -41,17 +41,10 @@ public class SixSpecOneSample extends OpModeCommand {
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score1()).setCompletionThreshold(0.975)
                                                 .andThen(
-                                                        new InstantCommand(() -> r.getI().cloud())
+                                                        new InstantCommand(() -> { r.getE().toFull(); })
                                                 ),
-                                        new WaitCommand(100)
-                                                .andThen(
-                                                        new InstantCommand(
-                                                                () -> {
-                                                                    r.getI().hover();
-                                                                    r.getE().toFull();
-                                                                }
-                                                        )
-                                                )
+                                        new WaitCommand(1000)
+                                                .andThen(new InstantCommand(() -> { r.getI().cloud(); }))
                                 ),
                         new AlignSixSpecOneSample(r, r.getM().getManualPoses().get(0))
                                 .andThen(
