@@ -18,6 +18,7 @@ import config.commands.Transfer;
 import config.core.util.Alliance;
 import config.core.util.OpModeCommand;
 import config.core.Robot;
+import config.subsystems.Outtake;
 
 @Autonomous(name = "6+1", group = "....Sigma")
 public class SixSpecOneSample extends OpModeCommand {
@@ -157,7 +158,7 @@ public class SixSpecOneSample extends OpModeCommand {
                                         new WaitCommand(250),
                                         new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score7(), true, 1).setCompletionThreshold(0.975)
                                                 .alongWith(
-                                                        new InstantCommand(() -> r.getO().score()),
+                                                        new InstantCommand(() -> r.getO().setRotateState(Outtake.RotateState.SCORE)),
                                                         new WaitCommand(250)
                                                                 .andThen(
                                                                         new InstantCommand(() -> r.getI().cloud()),
