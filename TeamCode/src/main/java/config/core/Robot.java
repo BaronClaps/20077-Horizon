@@ -39,9 +39,9 @@ public class Robot {
 
     public Pose s = new Pose();
     public double speed = 0.75;
-    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, c180Timer, aInitLoopTimer;
-    public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, c180State = -1;
-    private boolean aInitLoop;
+    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, c180Timer, aInitLoopTimer, sTTimer, fSATimer;
+    public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, c180State = -1, specTransferState = -1, fSAState = -1;
+    private boolean aInitLoop, frontScore = false, backScore = true;
 
     public Robot(HardwareMap h, Telemetry t, Gamepad g1a, Gamepad g2a, Alliance a, Pose startPose) {
         this.op = TELEOP;
@@ -71,6 +71,8 @@ public class Robot {
         spec180Timer = new Timer();
         c0Timer = new Timer();
         c180Timer = new Timer();
+        sTTimer = new Timer();
+        fSATimer = new Timer();
     }
 
     public Robot(HardwareMap h, Telemetry t, Alliance a, Pose startPose) {
@@ -100,6 +102,8 @@ public class Robot {
         c0Timer = new Timer();
         c180Timer = new Timer();
         aInitLoopTimer = new Timer();
+        sTTimer = new Timer();
+        fSATimer = new Timer();
 
         aInitLoopTimer.resetTimer();
         aInitLoop = false;
@@ -134,6 +138,8 @@ public class Robot {
         c0Timer = new Timer();
         c180Timer = new Timer();
         aInitLoopTimer = new Timer();
+        sTTimer = new Timer();
+        fSATimer = new Timer();
 
         aInitLoopTimer.resetTimer();
         aInitLoop = false;
@@ -173,6 +179,8 @@ public class Robot {
         updateControls();
         submersible();
         transfer();
+        specTransfer();
+        frontScoreAfter();
 
         e.periodic();
         l.periodic();
@@ -234,13 +242,17 @@ public class Robot {
             o.transfer();
             i.hover();
         }
-
+        
+        if (g2.x && !p2.x) {
+            startSpecTransfer();
+        }
+/*
         if (g2.x && !p2.x) {
             o.score();
             i.hover();
         }
-
-        if (g2.dpad_left && !p2.dpad_left) {
+*/
+ /*       if (g2.dpad_left && !p2.dpad_left) {
             o.startSpecGrab();
             i.specimen();
         }
@@ -248,6 +260,31 @@ public class Robot {
         if (g2.dpad_right && !p2.dpad_right) {
             o.specimenScore180();
             i.specimen();
+        }*/
+        
+        if (g2.dpad_left && !p2.dpad_left) {
+            if (!backScore) {
+                o.specimenScore180();
+                i.specimen();
+                backScore = true;
+            } else {
+                o.startSpecGrab();
+                i.specimen();
+                backScore = false;
+            }
+        }
+
+        if (g2.dpad_right && !p2.dpad_right) {
+            if (!frontScore) {
+                o.specimenScore0();
+                getL().toChamber();
+                i.hover();
+                frontScore = true;
+            } else {
+                o.specimenScore0After();
+                startFrontScoreAfter();
+                frontScore = false;
+            }
         }
 
         if (g2.b && !p2.b)
@@ -263,7 +300,6 @@ public class Robot {
         if (g2.dpad_down && !p2.dpad_down) {
             i.cloud();
             i.open();
-            o.transfer();
         }
 
         if (g2.left_bumper && !p2.left_bumper)
@@ -442,7 +478,6 @@ public class Robot {
             case 0:
                 i.ground();
                 i.open();
-                o.transfer();
                 setSubmersibleState(1);
                 break;
             case 1:
@@ -452,7 +487,7 @@ public class Robot {
                 }
                 break;
             case 2:
-                if (sTimer.getElapsedTimeSeconds() > 0.15) {
+                if (sTimer.getElapsedTimeSeconds() > 0.25) {
                     i.hover();
                     setSubmersibleState(-1);
                 }
@@ -586,4 +621,88 @@ public class Robot {
     public void startSpecimen0() {
         setSpecimen0State(1);
     }
+    
+    public void specTransfer() {
+        switch (specTransferState) {
+            case 0:
+                //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
+                getO().transfer();
+                getL().toZero();
+                getI().hover();
+                setSpecTransferState(1);
+                break;
+            case 1:
+                if (getF().getCurrentTValue() >= 0.2) {
+                    getI().transfer();
+                    setSpecTransferState(2);
+                }
+                break;
+            case 2:
+                if (sTTimer.getElapsedTimeSeconds() > 0.1) {
+                    getL().pidOff();
+                    getE().toTransfer();
+                    setSpecTransferState(3);
+                }
+                break;
+            case 3:
+                int temp;
+
+                if (getE().getState() == Extend.ExtendState.FULL)
+                    temp = 1;
+                else
+                    temp = 0;
+
+                if (sTTimer.getElapsedTimeSeconds() > 0.2 && temp == 0) {
+                    getO().close();
+                    setSpecTransferState(4);
+                } else if (sTTimer.getElapsedTimeSeconds() > 0.45 && temp == 1) {
+                    getO().close();
+                    setSpecTransferState(4);
+                }
+                break;
+            case 4:
+                if (sTTimer.getElapsedTimeSeconds() > 0.25) {
+                    getI().open();
+                    setSpecTransferState(5);
+                }
+                break;
+            case 5:
+                if (sTTimer.getElapsedTimeSeconds() > 0.2) {
+                    getO().specimenGrab0Closed();
+                    setSpecTransferState(-1);
+                }
+                break;
+                
+        }
+    }
+    
+    public void setSpecTransferState(int x) {
+        specTransferState = x;
+        sTTimer.resetTimer();
+    }
+    
+    public void startSpecTransfer() {
+        setSpecTransferState(0);
+    }
+
+    public void frontScoreAfter() {
+        if (fSAState == 1) {
+            if(fSATimer.getElapsedTimeSeconds() > 0.35) {
+                getO().open();
+                getL().toZero();
+                setFrontScoreAfterState(-1);
+            }
+        }
+    }
+
+    public void setFrontScoreAfterState(int x) {
+        fSAState = x;
+        fSATimer.resetTimer();
+    }
+
+    public void startFrontScoreAfter() {
+        setFrontScoreAfterState(1);
+    }
+
+
 }

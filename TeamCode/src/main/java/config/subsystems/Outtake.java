@@ -256,6 +256,14 @@ public class Outtake {
         setGrabState(GrabState.OPEN);
     }
 
+    public void specimenGrab0Closed() {
+        setRotateState(RotateState.SPECIMENGRAB0);
+        setPivotState(PivotState.SPECIMENGRAB0);
+        setGrabState(GrabState.CLOSED);
+    }
+
+
+
     public void specimenScore0() {
         setRotateState(RotateState.SPECIMENSCORE0);
         setPivotState(PivotState.SPECIMENSCORE0);

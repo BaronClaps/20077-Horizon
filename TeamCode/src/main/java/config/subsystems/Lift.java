@@ -29,7 +29,7 @@ public class Lift {
     public CachedMotor rightLift, leftLift;
     public int pos;
     public PIDController pid;
-    public boolean pidOn = false;
+    public int pidLevel = 0;
     public static int target;
     public static double p = 0.01, i = 0, d = 0.00000000000005, f = 0.05;
 
@@ -51,7 +51,7 @@ public class Lift {
     }
 
     public void update() {
-        if(pidOn) {
+        if(pidLevel == 1) {
             pid.setPID(p, i, d);
 
             rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -67,20 +67,29 @@ public class Lift {
                 rightLift.setPower(power);
                 leftLift.setPower(power);
             }
-        } else {
+        } else if (pidLevel == 2){
+            target = getPos();
             rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        } else {
+            target = getPos();
+            rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            rightLift.setPower(0);
+            leftLift.setPower(0);
         }
     }
 
     public void manual(double left, double right) {
-        pidOn = false;
-        leftLift.setPower(right - left);
-        rightLift.setPower(right - left);
+        if(Math.abs(left) > 0.05 || Math.abs(right) > 0.05) {
+            pidLevel = 2;
+            leftLift.setPower(right - left);
+            rightLift.setPower(right - left);
+        }
     }
 
     public void setTarget(int b) {
-        pidOn = true;
+        pidLevel = 1;
         target = b;
     }
 
@@ -122,11 +131,11 @@ public class Lift {
     }
 
     public void pidOn() {
-        pidOn = true;
+        pidLevel = 1;
     }
 
     public void pidOff() {
-        pidOn = false;
+        pidLevel = 2;
     }
 
     public void telemetry() {
