@@ -31,10 +31,11 @@ public class SpecTransfer extends CommandBase {
                 //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
                 robot.getO().transfer();
                 robot.getI().hover();
+                robot.getL().pidOff();
                 setState(1);
                 break;
             case 1:
-                if (robot.getF().getCurrentTValue() >= 0.4) {
+                if (robot.getF().getCurrentTValue() >= 0.2) {
                     robot.getI().transfer();
                     setState(2);
                 }
@@ -70,7 +71,6 @@ public class SpecTransfer extends CommandBase {
             case 5:
                 if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getO().score();
-                    robot.getI().hover();
                     setState(6);
                 }
                 break;

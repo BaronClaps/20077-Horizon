@@ -43,10 +43,15 @@ public class SevenSpec extends OpModeCommand {
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score1()).setCompletionThreshold(0.975)
                                                 .andThen(
-                                                        new InstantCommand(() -> { r.getI().cloud(); r.getE().toFull(); })
+                                                        new InstantCommand(() -> {
+                                                            r.getI().cloud();
+                                                            r.getE().toFull();
+                                                        })
                                                 ),
                                         new WaitCommand(1000)
-                                                .andThen(new InstantCommand(() -> { r.getI().cloud(); }))
+                                                .andThen(new InstantCommand(() -> {
+                                                    r.getI().cloud();
+                                                }))
                                 ),
                         new AlignSevenSpecFirst(r, r.getM().getManualPoses().get(0))
                                 .andThen(
@@ -71,19 +76,21 @@ public class SevenSpec extends OpModeCommand {
                                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab2()).setCompletionThreshold(0.975)
                                                 .andThen(new InstantCommand(() -> {
                                                     r.getO().close();
-                                                    r.getI().init();
                                                 }))
                                 ),
                         new ForwardChamber(r)
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.SevenSpec.score2()).setCompletionThreshold(0.975)
-                                                .andThen(
-                                                        new InstantCommand(
-                                                                () -> {
-                                                                    r.getI().hover();
-                                                                    r.getE().toFull();
-                                                                }
-                                                        )
+                                                .alongWith(
+                                                        new WaitUntilCommand(() -> r.getF().getCurrentTValue() > 0.8)
+                                                                .andThen(
+                                                                        new InstantCommand(
+                                                                                () -> {
+                                                                                    r.getI().hover();
+                                                                                    r.getE().toFull();
+                                                                                }
+                                                                        )
+                                                                )
                                                 )
                                 ),
                         new AlignSevenSpecSecond(r, r.getM().getManualPoses().get(1))
@@ -192,18 +199,18 @@ public class SevenSpec extends OpModeCommand {
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score7(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
-                        //new FollowPath(r.getF(), config.core.paths.SevenSpec.park(), true, 1)
-                        //        .alongWith(
+                        new FollowPath(r.getF(), config.core.paths.SevenSpec.park(), true, 1)
+                                .alongWith(
                         new InstantCommand(
                                 () -> {
                                     //                            r.getO().transfer();
                                     r.getI().hover();
                                 }
-                                //                ),
-                                //                 new WaitCommand(500)
-                                //                        .andThen(
-                                //                                new InstantCommand(() -> r.getE().toFull())
-                                //                        )
+                                                ),
+                                                 new WaitCommand(250)
+                                                        .andThen(
+                                                                new InstantCommand(() -> r.getE().toFull())
+                                                      )
                         )
                 )
         );

@@ -43,7 +43,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(start.getHeading())
-                .setZeroPowerAccelerationMultiplier(4)
+                .setZeroPowerAccelerationMultiplier(3)
                 .build();
     }
 

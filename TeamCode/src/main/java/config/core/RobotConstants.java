@@ -17,7 +17,7 @@ public class RobotConstants {
     public static double outtakeRotateRightSpecimenScore180 = 0.3;
     public static double outtakeRotateLeftSpecimenGrab0 = 0.3;
     public static double outtakeRotateRightSpecimenGrab0 = 0.7;
-    public static double outtakePivotTransfer= 0.825; //0
+    public static double outtakePivotTransfer= 0.85; //0
     public static double outtakePivotScore = 0.4;
     public static double outtakePivotSpecimenGrab180 = 0.9;
     public static double outtakePivotSpecimenScore180 = 0.36;
@@ -31,12 +31,12 @@ public class RobotConstants {
     // Intake
     public static double intakeGrabClose = 0.095;
     public static double intakeGrabOpen = 0.35;
-    public static double intakeRotateTransfer = 0.41;
+    public static double intakeRotateTransfer = 0.3;
     public static double intakeRotateHoverVertical = 0.81;
     public static double intakeRotateGroundVertical = 0.77;
     public static double intakeRotateCloudVertical = 0.81;
     public static double intakeRotateSpecimen = 0.45;
-    public static double intakePivotTransfer= 0.38;
+    public static double intakePivotTransfer= 0.6;
     public static double intakePivotGround = 0.67;
     public static double intakePivotHover = 0.43;
     public static double intakePivotCloud = 0.6;
