@@ -18,7 +18,7 @@ public class ManualPose {
     public ManualPose(Telemetry t, boolean spec) {
         telemetry = t;
         if (spec)
-            defaultPose = new Pose(25, 72, Math.toRadians(0));
+            defaultPose = new Pose(23.5, 72, Math.toRadians(0));
         else
             defaultPose = new Pose(0, 0, 0);
     }
