@@ -78,11 +78,19 @@ public class Vision {
             if (colorMatch) {
                 // Compute angles
                 double xAngle = Math.toRadians(detection.getTargetYDegrees());
-                double yAngle = Math.toRadians(-detection.getTargetXDegrees());
+                double yAngle = Math.toRadians(detection.getTargetXDegrees());
+
+                telemetry.addData("X T Angle", detection.getTargetYDegrees());
+                telemetry.addData("Y T Angle", detection.getTargetXDegrees());
+                telemetry.addData("X Angle", xAngle);
+                telemetry.addData("Y Angle", yAngle);
 
                 // Compute distances
                 double xDistance = (((limelightHeight * 2) * Math.sin(xAngle)) / Math.sin(Math.toRadians(150)-xAngle));
                 double yDistance = Math.tan(yAngle) * xDistance;
+
+                telemetry.addData("X Distance", xDistance);
+                telemetry.addData("Y Distance", yDistance);
 
                 // Score based on alignment
                 double rotationScore = -Math.abs((detection.getTargetCorners().get(0).get(0) -
@@ -130,7 +138,6 @@ public class Vision {
             toTarget = new PathBuilder()
                     .addPath(new BezierLine(f.getPose(), target)).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
 
-            // Display results
             telemetry.addData("Best Detection", bestDetection.getDetection().getClassName());
             telemetry.addData("Sample Position", "X: %.2f, Y: %.2f", sample.getX(), sample.getY());
             telemetry.addData("diff", difference);

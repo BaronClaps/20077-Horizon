@@ -64,6 +64,7 @@ public class VisionTest extends OpMode {
 
         v.find();
 
+
         if (g1.y && !p1.y) {
             v.find();
             i.rotateDegrees(v.getAngle());
