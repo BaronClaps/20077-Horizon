@@ -36,7 +36,7 @@ public class Vision {
     private double bestAngle;
     private Follower f;
 
-    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted, Follower f, ManualInput manualInput) {
+    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted, Follower f) {
         this.unwanted = unwanted;
         this.telemetry = telemetry;
         this.f = f;
@@ -45,7 +45,7 @@ public class Vision {
         limelight.setPollRateHz(100);
         limelight.pipelineSwitch(9);
         limelight.start();
-f.update();
+        f.update();
         cachedTarget = f.getPose();
         f.update();
     }
@@ -77,11 +77,11 @@ f.update();
 
             if (colorMatch) {
                 // Compute angles
-                double xAngle = detection.getTargetYDegrees();
+                double xAngle = Math.toRadians(detection.getTargetYDegrees());
                 double yAngle = Math.toRadians(-detection.getTargetXDegrees());
 
                 // Compute distances
-                double xDistance = -(((limelightHeight * 2) * Math.sin(xAngle)) / Math.sin(150-xAngle));
+                double xDistance = (((limelightHeight * 2) * Math.sin(xAngle)) / Math.sin(Math.toRadians(150)-xAngle));
                 double yDistance = Math.tan(yAngle) * xDistance;
 
                 // Score based on alignment
@@ -146,6 +146,8 @@ f.update();
     }
 
     public PathChain toTarget() {
+        toTarget = new PathBuilder()
+                .addPath(new BezierLine(f.getPose(), new Pose(f.getPose().getX(), target.getY()))).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
         return toTarget;
     }
 

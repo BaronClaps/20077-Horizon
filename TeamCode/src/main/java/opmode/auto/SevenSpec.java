@@ -219,26 +219,21 @@ public class SevenSpec extends OpModeCommand {
     @Override
     public void init_loop() {
         super.init_loop();
-       /* r.getM().update(gamepad2);
+        r.getM().update(gamepad2);
 
         if(gamepad2.left_stick_button) {
-            r.getT().addLine();
-            r.getT().addLine();
-
             config.core.paths.SevenSpec.sub2 = r.getM().getManualPoses().get(0).getPose().copy();
             config.core.paths.SevenSpec.sub3 = r.getM().getManualPoses().get(1).getPose().copy();
-
-            r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
-            r.getT().addData("sub3", config.core.paths.SevenSpec.sub3);
-
-            r.getT().addLine();
-
             config.core.paths.SevenSpec.score1.setY(r.getM().getManualPoses().get(0).getPose().getY());
             config.core.paths.SevenSpec.score2.setY(r.getM().getManualPoses().get(1).getPose().getY());
-
-            r.getT().addData("score1", config.core.paths.SevenSpec.score1);
-            r.getT().addData("score2", config.core.paths.SevenSpec.score2);
         }
-        r.getT().update();*/
+        r.getT().addLine();
+        r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
+        r.getT().addData("sub3", config.core.paths.SevenSpec.sub3);
+        r.getT().addLine();
+        r.getT().addData("score1", config.core.paths.SevenSpec.score1);
+        r.getT().addData("score2", config.core.paths.SevenSpec.score2);
+        r.getT().addLine();
+        r.getT().update();
     }
 }

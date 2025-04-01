@@ -24,7 +24,6 @@ public class VisionTest extends OpMode {
     Intake i;
     Light j;
     Outtake o;
-    ManualInput manualInput;
     Gamepad g1, p1;
     
     public int sState;
@@ -33,8 +32,7 @@ public class VisionTest extends OpMode {
     @Override
     public void init() {
         f = new Follower(hardwareMap, FConstants.class, LConstants.class);
-        manualInput = new ManualInput(telemetry, gamepad1, 0, true);
-        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f, manualInput);
+        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f);
         e = new Extend(hardwareMap, telemetry);
         i = new Intake(hardwareMap, telemetry);
         j = new Light(hardwareMap, telemetry);
@@ -55,7 +53,7 @@ public class VisionTest extends OpMode {
 
     @Override
     public void init_loop() {
-        manualInput.update(gamepad2);
+//        manualInput.update(gamepad2);
         telemetry.update();
     }
 
@@ -63,6 +61,8 @@ public class VisionTest extends OpMode {
     public void loop() {
         p1.copy(g1);
         g1.copy(gamepad1);
+
+        v.find();
 
         if (g1.y && !p1.y) {
             v.find();
