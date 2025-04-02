@@ -21,9 +21,9 @@ import config.core.ManualInput;
 @Config
 public class Vision {
     // Limelight and claw configuration
-    public static double limelightHeight = 9.5; // Camera height in inches
+    public static double limelightHeight = 19; // Camera height in inches
     public static double limelightAngle = 60; // Camera angle (0° = down, 90° = forward)
-    public static double clawForwardOffset = 19; // Claw's forward offset from the camera
+    public static double clawForwardOffset = 18; // Claw's forward offset from the camera
     public static double clawLateralOffset = 5; // Claw's lateral (right is +) offset from the camera
 
     private Pose sample = new Pose(), difference = new Pose(), target = new Pose(); // The best sample's position
@@ -133,6 +133,7 @@ public class Vision {
             difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() + clawLateralOffset, 0);
 
             target = new Pose(f.getPose().getX() + difference.getX(), f.getPose().getY() + difference.getY(), f.getPose().getHeading());
+
             cachedTarget = target.copy();
 
             toTarget = new PathBuilder()
@@ -154,7 +155,9 @@ public class Vision {
 
     public PathChain toTarget() {
         toTarget = new PathBuilder()
-                .addPath(new BezierLine(f.getPose(), new Pose(f.getPose().getX(), target.getY()))).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
+                .addPath(new BezierLine(f.getPose(), target))//new Pose(target, target.getY())))
+                .setConstantHeadingInterpolation(f.getPose().getHeading())
+                .build();
         return toTarget;
     }
 

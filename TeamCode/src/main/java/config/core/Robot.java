@@ -421,6 +421,7 @@ public class Robot {
             case 1:
                 //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
                 o.transfer();
+                l.toZero();
                 i.transfer();
                 setTransferState(2);
                 break;
@@ -454,6 +455,7 @@ public class Robot {
                 break;
             case 5:
                 if (tTimer.getElapsedTimeSeconds() > 0.2) {
+                    l.pidOff();
                     o.score();
                     i.hover();
                     setTransferState(-1);
@@ -669,6 +671,7 @@ public class Robot {
             case 5:
                 if (sTTimer.getElapsedTimeSeconds() > 0.2) {
                     getO().specimenGrab0Closed();
+                    frontScore = false;
                     setSpecTransferState(-1);
                 }
                 break;

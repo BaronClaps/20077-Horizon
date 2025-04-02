@@ -64,7 +64,6 @@ public class VisionTest extends OpMode {
 
         v.find();
 
-
         if (g1.y && !p1.y) {
             v.find();
             i.rotateDegrees(v.getAngle());
@@ -102,6 +101,9 @@ public class VisionTest extends OpMode {
             i.cloud();
             i.open();
         }
+
+        if(g1.right_trigger > 0.2)
+            f.setTeleOpMovementVectors( -g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.5, true);
 
         f.update();
         submersible();
