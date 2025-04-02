@@ -218,8 +218,8 @@ public class Robot {
 
         l.manual(g2.left_trigger, g2.right_trigger);
 
-        if (g1.a && !p1.a)
-            j.switchI();
+        if((!(g2.left_trigger < 0.1)) && ((p2.left_trigger < 0.1)) && (!(g2.right_trigger < 0.1) && (p2.right_trigger < 0.1)))
+            l.pidOff();
 
         if (g1.x) {
             flip = -1;
@@ -246,6 +246,7 @@ public class Robot {
         if (g2.x && !p2.x) {
             startSpecTransfer();
         }
+
 /*
         if (g2.x && !p2.x) {
             o.score();
