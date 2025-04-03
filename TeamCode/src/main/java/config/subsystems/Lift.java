@@ -18,6 +18,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import config.core.hardware.CachedMotor;
 
+/** @author Baron Henderson
+ * @version 2.0 | 1/4/25
+ */
+
 @Config
 public class Lift {
 
@@ -28,6 +32,7 @@ public class Lift {
     public int pidLevel = 0;
     public static int target;
     public static double p = 0.01, i = 0, d = 0.00000000000005, f = 0.05;
+
 
     public Lift(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -46,7 +51,7 @@ public class Lift {
     }
 
     public void update() {
-        if (pidLevel == 1) { // PID Control State
+        if(pidLevel == 1) {
             pid.setPID(p, i, d);
 
             rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -62,11 +67,12 @@ public class Lift {
                 rightLift.setPower(power);
                 leftLift.setPower(power);
             }
-        } else if (pidLevel == 2) { // Manual Control State
+        } else if (pidLevel == 2){
             target = getPos();
             rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        } else { // Inactive State
+        } else {
+            target = getPos();
             rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             rightLift.setPower(0);
@@ -75,15 +81,15 @@ public class Lift {
     }
 
     public void manual(double left, double right) {
-        if (Math.abs(left) > 0.05 && Math.abs(right) > 0.05) {
-            pidLevel = 2; // Switch to Manual Control State
+        if(Math.abs(left) > 0.05 || Math.abs(right) > 0.05) {
+            pidLevel = 2;
             leftLift.setPower(right - left);
             rightLift.setPower(right - left);
         }
     }
 
     public void setTarget(int b) {
-        pidLevel = 1; // Switch to PID Control State
+        pidLevel = 1;
         target = b;
     }
 
@@ -93,12 +99,11 @@ public class Lift {
     }
 
     public void init() {
-        pid.setPID(p, i, d);
+        pid.setPID(p,i,d);
     }
 
     public void start() {
         target = 0;
-        pidLevel = 0;
     }
 
     public void toZero() {
@@ -130,9 +135,7 @@ public class Lift {
     }
 
     public void pidOff() {
-        pidLevel = 0; // Switch to Inactive State
-        leftLift.setPower(0);
-        rightLift.setPower(0);
+        pidLevel = 2;
     }
 
     public void telemetry() {
