@@ -191,8 +191,8 @@ public class SevenSpec {
                 .addPath(
                         // Line 4
                         new BezierLine(
-                                new Point(34.000, 36.500, Point.CARTESIAN),
-                                new Point(29.500, 36.50, Point.CARTESIAN)
+                                new Point(34.000, 37.000, Point.CARTESIAN),
+                                new Point(29.500, 37.000, Point.CARTESIAN)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(250))
@@ -206,7 +206,7 @@ public class SevenSpec {
                 .addPath(
                         // Line 5
                         new BezierLine(
-                                new Point(29.500, 36.50, Point.CARTESIAN),
+                                new Point(29.500, 37.000, Point.CARTESIAN),
                                 new Point(36.000, 25.000, Point.CARTESIAN)
                         )
                 )

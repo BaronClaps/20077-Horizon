@@ -18,7 +18,7 @@ public class ManualPose {
     public ManualPose(Telemetry t, boolean spec) {
         telemetry = t;
         if (spec)
-            defaultPose = new Pose(23.5, 72, Math.toRadians(0));
+            defaultPose = new Pose(23.5+22, 72, Math.toRadians(0));
         else
             defaultPose = new Pose(0, 0, 0);
     }
@@ -67,7 +67,7 @@ public class ManualPose {
     }
 
     public void calculate() {
-        xOffset = 1.181 * xTabs;
+        xOffset = 1.181 * Math.signum(xTabs);
         yOffset = 1.181 * yTabs;
     }
 
@@ -81,5 +81,16 @@ public class ManualPose {
     @NonNull
     public String toString() {
         return "X Tabs: " + xTabs + ", Y Tabs: " + yTabs + "\n" + "X Offset: " + xOffset + ", Y Offset: " + yOffset + "\nRotation: " + rotation;
+    }
+
+    public double getDistance(int tiles) {
+        switch (tiles) {
+            case 0:
+                return 0;
+            case 1:
+                return 1.125;
+        }
+
+        return 0;
     }
 }
