@@ -199,18 +199,14 @@ public class SevenSpec extends OpModeCommand {
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score7(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
-                        new FollowPath(r.getF(), config.core.paths.SevenSpec.park(), true, 1)
-                                .alongWith(
+//                        new FollowPath(r.getF(), config.core.paths.SevenSpec.park(), true, 1)
+//                                .alongWith(
                         new InstantCommand(
                                 () -> {
                                     //                            r.getO().transfer();
                                     r.getI().hover();
                                 }
-                                                ),
-                                                 new WaitCommand(250)
-                                                        .andThen(
-                                                                new InstantCommand(() -> r.getE().toFull())
-                                                      )
+                                               // )
                         )
                 )
         );

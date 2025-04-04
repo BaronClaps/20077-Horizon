@@ -67,8 +67,14 @@ public class ManualPose {
     }
 
     public void calculate() {
-        xOffset = 1.181 * Math.signum(xTabs);
-        yOffset = 1.181 * yTabs;
+        xOffset = getDistance(xTabs) * Math.signum(xTabs);
+        yOffset = getDistance(yTabs) * Math.signum(yTabs);
+
+        if (xTabs == 0) {
+            xOffset = getDistance(5) * -1;
+        }
+
+        xOffset += Math.abs(rotation / 22.5) * 0.25;
     }
 
     public void update() {
@@ -83,14 +89,33 @@ public class ManualPose {
         return "X Tabs: " + xTabs + ", Y Tabs: " + yTabs + "\n" + "X Offset: " + xOffset + ", Y Offset: " + yOffset + "\nRotation: " + rotation;
     }
 
-    public double getDistance(int tiles) {
-        switch (tiles) {
+    public double getDistance(double tiles) {
+        double i = 0;
+        switch ((int) tiles) {
             case 0:
-                return 0;
+                i = 0;
             case 1:
-                return 1.125;
+                i = 1.125;
+            case 2:
+                i = 2 + (double) 3/8;
+            case 3:
+                i = 3 + (double) 1/4;
+            case 4:
+                i = 5;
+            case 5:
+                i = 5 + (double) 3/4;
+            case 6:
+                i = 7 + (double) 3/8;
+            case 7:
+                i = 8 + (double) 1/4;
+            case 8:
+                i = 9 + (double) 5/8;
+            case 9:
+                i = 10 + (double) 1/2;
+            case 10:
+                i = 11 + (double) 3/8;
         }
 
-        return 0;
+        return i;
     }
 }

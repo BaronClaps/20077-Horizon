@@ -2,6 +2,8 @@ package config.core;
 
 import static config.core.util.Opmode.*;
 
+import android.sax.StartElementListener;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Timer;
@@ -39,9 +41,9 @@ public class Robot {
 
     public Pose s = new Pose();
     public double speed = 0.75;
-    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, c180Timer, aInitLoopTimer, sTTimer, fSATimer;
-    public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, c180State = -1, specTransferState = -1, fSAState = -1;
-    private boolean aInitLoop, frontScore = false, backScore = true;
+    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, aFGTimer, aInitLoopTimer, sTTimer, fSATimer;
+    public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, aFGState = -1, specTransferState = -1, fSAState = -1;
+    private boolean aInitLoop, frontScore = false, backScore = true, automationActive = false;
 
     public Robot(HardwareMap h, Telemetry t, Gamepad g1a, Gamepad g2a, Alliance a, Pose startPose) {
         this.op = TELEOP;
@@ -70,7 +72,7 @@ public class Robot {
         spec0Timer = new Timer();
         spec180Timer = new Timer();
         c0Timer = new Timer();
-        c180Timer = new Timer();
+        aFGTimer = new Timer();
         sTTimer = new Timer();
         fSATimer = new Timer();
     }
@@ -100,7 +102,7 @@ public class Robot {
         spec0Timer = new Timer();
         spec180Timer = new Timer();
         c0Timer = new Timer();
-        c180Timer = new Timer();
+        aFGTimer = new Timer();
         aInitLoopTimer = new Timer();
         sTTimer = new Timer();
         fSATimer = new Timer();
@@ -136,7 +138,7 @@ public class Robot {
         spec0Timer = new Timer();
         spec180Timer = new Timer();
         c0Timer = new Timer();
-        c180Timer = new Timer();
+        aFGTimer = new Timer();
         aInitLoopTimer = new Timer();
         sTTimer = new Timer();
         fSATimer = new Timer();
@@ -208,6 +210,13 @@ public class Robot {
         p2.copy(g2);
         g1.copy(g1a);
         g2.copy(g2a);
+
+        if (automationActive) {
+            if (g1.back && !p1.back) {
+                automationActive = false;
+            }
+            return;
+        }
 
         if (g1.right_bumper)
             speed = 1;
@@ -507,122 +516,32 @@ public class Robot {
         setSubmersibleState(0);
     }
 
-    public void chamber180() {
-        t.addData("Chamber 180 State", c180State);
-
-        switch (c180State) {
-            case 1:
-                o.specimenScore180();
-                e.toZero();
-                setChamber180State(2);
-                break;
-            case 2:
-                if (!f.isBusy()) {
-                    o.open();
-                    setChamber180State(3);
-                }
-                break;
-            case 3:
-                if(c180Timer.getElapsedTimeSeconds() > 0.25) {
-                    o.afterSpecScore();
-                    o.open();
-                    setChamber180State(-1);
-                }
-                break;
+    public void automaticFrontGrab() {
+        if (aFGState >= 1) {
+            t.addLine("Automatic Front Grab ON");
         }
-    }
 
-    public void setChamber180State(int x) {
-        c180State = x;
-        c180Timer.resetTimer();
-    }
-
-    public void startChamber180() {
-        setChamber180State(1);
-    }
-
-    public void specimen180() {
-        t.addData("Specimen 180 State", spec180State);
-        if (spec180State == 1) {
-            o.specimenGrab180();
-            e.toZero();
-            setSpecimen180State(-1);
-        }
-    }
-
-    public void setSpecimen180State(int x) {
-        spec180State = x;
-        spec180Timer.resetTimer();
-    }
-
-    public void startSpecimen180() {
-        setSpecimen180State(1);
-    }
-
-    public void chamber0() {
-        t.addData("Chamber 0 State", c0State);
-
-        switch (c0State) {
+        switch (aFGState) {
             case 1:
                 l.toChamberScore();
-                setChamber0State(2);
+                setAutomaticFrontGrabState(2);
                 break;
             case 2:
                 if (l.roughlyAtTarget()) {
                     o.open();
-                    setChamber0State(3);
-                }
-                break;
-            case 3:
-                if(c0Timer.getElapsedTimeSeconds() > 0.25) {
-                    l.toZero();
-                    setChamber0State(-1);
+                    setAutomaticFrontGrabState(-1);
                 }
                 break;
         }
     }
 
-    public void setChamber0State(int x) {
-        c180State = x;
-        c180Timer.resetTimer();
+    public void setAutomaticFrontGrabState(int x) {
+        aFGState = x;
+        aFGTimer.resetTimer();
     }
 
-    public void startChamber0() {
-        setChamber0State(1);
-    }
-
-    public void specimen0() {
-        t.addData("Specimen 0 State", spec0State);
-
-        switch (spec0State) {
-            case 1:
-                o.specimenGrab0();
-                e.toZero();
-                setSpecimen0State(2);
-                break;
-            case 2:
-                if (!f.isBusy()) {
-                    o.close();
-                    setSpecimen0State(3);
-                }
-                break;
-            case 3:
-                if(spec0Timer.getElapsedTimeSeconds() > 0.25) {
-                    l.toChamber();
-                    o.specimenScore0();
-                    setSpecimen0State(-1);
-                }
-                break;
-        }
-    }
-
-    public void setSpecimen0State(int x) {
-        spec0State = x;
-        spec0Timer.resetTimer();
-    }
-
-    public void startSpecimen0() {
-        setSpecimen0State(1);
+    public void startAutomaticFrontGrab() {
+        setAutomaticFrontGrabState(1);
     }
     
     public void specTransfer() {
