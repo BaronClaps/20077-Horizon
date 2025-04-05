@@ -7,7 +7,7 @@ import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 
 public class FourSamp {
-    public static Pose start = new Pose(6.5, 114, Math.toRadians(270));
+    public static Pose start = new Pose(6.75, 114, Math.toRadians(270));
     public static Pose score = new Pose(15.25, 128.25, Math.toRadians(-45));
     public static Pose second = new Pose (19, 127, Math.toRadians(345.5));
     public static Pose third = new Pose(18.75, 129.5, Math.toRadians(4));

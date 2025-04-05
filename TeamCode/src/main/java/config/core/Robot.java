@@ -225,7 +225,10 @@ public class Robot {
         else
             speed = 0.75;
 
+
         l.manual(g2.left_trigger, g2.right_trigger);
+
+
 
         if (g1.a && !p1.a)
             j.switchI();
@@ -449,7 +452,7 @@ public class Robot {
                 else
                     temp = 0;
 
-                if (tTimer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
+                if (tTimer.getElapsedTimeSeconds() > 0.6 && temp == 0) {
                     o.close();
                     setTransferState(4);
                 } else if (tTimer.getElapsedTimeSeconds() > 0.65 && temp == 1) {

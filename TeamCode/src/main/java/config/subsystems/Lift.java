@@ -85,6 +85,9 @@ public class Lift {
             pidLevel = 2;
             leftLift.setPower(right - left);
             rightLift.setPower(right - left);
+        } else if (pidLevel == 2) {
+            rightLift.setPower(0);
+            leftLift.setPower(0);
         }
     }
 

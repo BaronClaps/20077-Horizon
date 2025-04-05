@@ -67,8 +67,8 @@ public class ManualPose {
     }
 
     public void calculate() {
-        xOffset = getDistance(xTabs) * Math.signum(xTabs);
-        yOffset = getDistance(yTabs) * Math.signum(yTabs);
+        xOffset = getDistance(Math.abs(xTabs)) * Math.signum(xTabs);
+        yOffset = getDistance(Math.abs(yTabs)) * Math.signum(yTabs);
 
         if (xTabs == 0) {
             xOffset = getDistance(5) * -1;
