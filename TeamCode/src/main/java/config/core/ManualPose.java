@@ -18,7 +18,7 @@ public class ManualPose {
     public ManualPose(Telemetry t, boolean spec) {
         telemetry = t;
         if (spec)
-            defaultPose = new Pose(23.5+22, 72, Math.toRadians(0));
+            defaultPose = new Pose(23.5 + 22, 72, Math.toRadians(0));
         else
             defaultPose = new Pose(0, 0, 0);
     }
@@ -66,17 +66,6 @@ public class ManualPose {
         rotation = 0;
     }
 
-    public void calculate() {
-        xOffset = getDistance(Math.abs(xTabs)) * Math.signum(xTabs);
-        yOffset = getDistance(Math.abs(yTabs)) * Math.signum(yTabs);
-
-        if (xTabs == 0) {
-            xOffset = getDistance(5) * -1;
-        }
-
-        xOffset += Math.abs(rotation / 22.5) * 0.25;
-    }
-
     public void update() {
         calculate();
         telemetry.addData("Tabs", "X: %.2f, Y: %.2f", xTabs, yTabs);
@@ -89,33 +78,63 @@ public class ManualPose {
         return "X Tabs: " + xTabs + ", Y Tabs: " + yTabs + "\n" + "X Offset: " + xOffset + ", Y Offset: " + yOffset + "\nRotation: " + rotation;
     }
 
+    public void calculate() {
+        xOffset = getDistance(xTabs);
+        yOffset = getDistance(yTabs);
+        xOffset += (Math.abs(rotation / 22.5) * 0.25);
+    }
+
     public double getDistance(double tiles) {
         double i = 0;
-        switch ((int) tiles) {
-            case 0:
-                i = 0;
-            case 1:
-                i = 1.125;
-            case 2:
-                i = 2 + (double) 3/8;
-            case 3:
-                i = 3 + (double) 1/4;
-            case 4:
-                i = 5;
-            case 5:
-                i = 5 + (double) 3/4;
-            case 6:
-                i = 7 + (double) 3/8;
-            case 7:
-                i = 8 + (double) 1/4;
-            case 8:
-                i = 9 + (double) 5/8;
-            case 9:
-                i = 10 + (double) 1/2;
-            case 10:
-                i = 11 + (double) 3/8;
+        boolean isNegative = tiles < 0;
+        tiles = Math.abs(tiles);
+
+        if (tiles == 0) {
+            i = 0;
+        } else if (tiles == 0.5) {
+            i = 0.5;
+        } else if (tiles == 1) {
+            i = 1.125;
+        } else if (tiles == 1.5) {
+            i = 1.125 + 0.5;
+        } else if (tiles == 2) {
+            i = 2 + (double) 3 / 8;
+        } else if (tiles == 2.5) {
+            i = 2 + (double) 3 / 8 + 0.5;
+        } else if (tiles == 3) {
+            i = 3 + (double) 1 / 4;
+        } else if (tiles == 3.5) {
+            i = 3 + (double) 1 / 4 + 0.5;
+        } else if (tiles == 4) {
+            i = 5;
+        } else if (tiles == 4.5) {
+            i = 5 + 0.5;
+        } else if (tiles == 5) {
+            i = 5 + (double) 3 / 4;
+        } else if (tiles == 5.5) {
+            i = 5 + (double) 3 / 4 + 0.5;
+        } else if (tiles == 6) {
+            i = 7 + (double) 3 / 8;
+        } else if (tiles == 6.5) {
+            i = 7 + (double) 3 / 8 + 0.5;
+        } else if (tiles == 7) {
+            i = 8 + (double) 1 / 4;
+        } else if (tiles == 7.5) {
+            i = 8 + (double) 1 / 4 + 0.5;
+        } else if (tiles == 8) {
+            i = 9 + (double) 5 / 8;
+        } else if (tiles == 8.5) {
+            i = 9 + (double) 5 / 8 + 0.5;
+        } else if (tiles == 9) {
+            i = 10 + (double) 1 / 2;
+        } else if (tiles == 9.5) {
+            i = 10 + (double) 1 / 2 + 0.5;
+        } else if (tiles == 10) {
+            i = 11 + (double) 3 / 8;
+        } else if (tiles == 10.5) {
+            i = 11 + (double) 3 / 8 + 0.5;
         }
 
-        return i;
+        return isNegative ? -i : i;
     }
 }
