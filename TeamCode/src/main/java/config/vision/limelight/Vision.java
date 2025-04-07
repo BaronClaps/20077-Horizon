@@ -144,6 +144,7 @@ public class Vision {
             telemetry.addData("diff", difference);
             telemetry.addData("target", target);
             telemetry.addData("current", f.getPose());
+            telemetry.addData("rotation", bestDetection.getAngle());
         } else {
             target = cachedTarget.copy();
         }

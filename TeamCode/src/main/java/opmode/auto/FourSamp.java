@@ -25,7 +25,7 @@ public class FourSamp extends OpModeCommand {
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.FourSamp.start, false, 0);
         r.getI().init();
-        r.getO().transfer();
+        r.getO().sevenInit();
         r.getO().close();
         r.getE().toZero();
         r.getT().addData("init", true);

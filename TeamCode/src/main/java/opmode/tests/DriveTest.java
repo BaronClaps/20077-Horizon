@@ -1,6 +1,10 @@
 package opmode.tests;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.follower.NewFollower;
+import com.pedropathing.localization.Pose;
+import com.pedropathing.pathgen.BezierLine;
+import com.pedropathing.pathgen.Path;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,14 +20,14 @@ import config.subsystems.Outtake;
 
 @TeleOp(name = "Drive Test", group = "Tests")
 public class DriveTest extends OpMode {
-    Follower f;
+    NewFollower f;
     Intake i;
     Extend e;
     Outtake o;
 
     @Override
     public void init() {
-        f = new Follower(hardwareMap, FConstants.class, LConstants.class);
+        f = new NewFollower(hardwareMap, FConstants.class, LConstants.class);
         f.setStartingPose(SevenSpec.start);
 
         i = new Intake(hardwareMap, telemetry);
