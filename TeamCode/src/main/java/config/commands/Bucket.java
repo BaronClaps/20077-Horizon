@@ -26,7 +26,6 @@ public class Bucket extends CommandBase {
             case 1:
                 robot.getL().toHighBucket();
                 robot.getO().close();
-                robot.getO().transfer();
                 robot.getE().toZero();
                 setState(2);
                 break;
@@ -37,7 +36,6 @@ public class Bucket extends CommandBase {
                 break;
             case 3:
                 if (timer.getElapsedTimeSeconds() > 0.1) {
-                    robot.getI().hover();
                     robot.getO().score();
                     setState(4);
                 }
@@ -56,6 +54,7 @@ public class Bucket extends CommandBase {
                 break;
             case 6:
                 if (timer.getElapsedTimeSeconds() > 0.5 && robot.getL().roughlyAtTarget()) {
+                    robot.getI().hover();
                     setState(-1);
                 }
                 break;
