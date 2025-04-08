@@ -8,11 +8,11 @@ import com.pedropathing.pathgen.PathChain;
 
 public class FourSamp {
     public static Pose start = new Pose(6.75, 114, Math.toRadians(270));
-    public static Pose score = new Pose(15.25, 128.25, Math.toRadians(-45));
-    public static Pose second = new Pose (19, 127.5, Math.toRadians(345.5));
-    public static Pose third = new Pose(18.75, 130, Math.toRadians(4));
-    public static Pose fourth = new Pose(20.5, 133, Math.toRadians(20.25));
-    public static Pose park = new Pose(57.25, 100, Math.toRadians(270));
+    public static Pose score = new Pose(18, 126, Math.toRadians(-45));
+    public static Pose second = new Pose (19, 123.25, Math.toRadians(0));
+    public static Pose third = new Pose(18.75, 131, Math.toRadians(0));
+    public static Pose fourth = new Pose(19.5, 133, Math.toRadians(20.25));
+    public static Pose park = new Pose(57.25, 96, Math.toRadians(270));
     public static PathChain score1() {
         return new PathBuilder()
                 .addPath(

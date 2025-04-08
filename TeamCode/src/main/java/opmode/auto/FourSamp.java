@@ -39,38 +39,47 @@ public class FourSamp extends OpModeCommand {
                                         new FollowPath(r.getF(), config.core.paths.FourSamp.score1())
                                 ),
                         new FollowPath(r.getF(), config.core.paths.FourSamp.grab2())
-                                .andThen(
+                                .alongWith(
+                                        new WaitCommand(375)
+                                                .andThen(
                                         new InstantCommand(() -> r.getE().toFull())
                                                 .andThen(
-                                                        new WaitCommand(500),
+                                                        new WaitCommand(375),
                                                         new Submersible(r),
                                                         new Transfer(r)
                                                 )
+                                        )
                                 ),
                         new Bucket(r)
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.FourSamp.score2())
                                 ),
                         new FollowPath(r.getF(), config.core.paths.FourSamp.grab3())
-                                .andThen(
+                                .alongWith(
+                                        new WaitCommand(450)
+                                                .andThen(
                                         new InstantCommand(() -> r.getE().toFull())
                                                 .andThen(
-                                                        new WaitCommand(500),
+                                                        new WaitCommand(375),
                                                         new Submersible(r),
                                                         new Transfer(r)
                                                 )
+                                        )
                                 ),
                         new Bucket(r)
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.FourSamp.score3())
                                 ),
                         new FollowPath(r.getF(), config.core.paths.FourSamp.grab4())
-                                .andThen(
-                                        new InstantCommand(() -> r.getE().toFull())
+                                .alongWith(
+                                        new WaitCommand(375)
                                                 .andThen(
-                                                        new WaitCommand(500),
-                                                        new Submersible(r),
-                                                        new Transfer(r)
+                                                        new InstantCommand(() -> r.getE().toFull())
+                                                                .andThen(
+                                                                        new WaitCommand(375),
+                                                                        new Submersible(r),
+                                                                        new Transfer(r)
+                                                                )
                                                 )
                                 ),
                         new Bucket(r)
@@ -80,11 +89,11 @@ public class FourSamp extends OpModeCommand {
                         new FollowPath(r.getF(), config.core.paths.FourSamp.park())
                                 .alongWith(
                                         new InstantCommand(() -> {
-                                                r.getO().transfer();
-                                                r.getI().hover();
-                                                r.getL().toPark();
-                                                r.getE().toZero();
-                                            }
+                                            r.getO().transfer();
+                                            r.getI().hover();
+                                            r.getL().toPark();
+                                            r.getE().toZero();
+                                        }
                                         )
                                 )
 

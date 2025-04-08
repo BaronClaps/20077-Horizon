@@ -40,7 +40,7 @@ public class Robot {
     public static Pose autoEndPose = new Pose();
 
     public Pose s = new Pose();
-    public double speed = 0.75;
+    public double speed = 0.9;
     public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, aFGTimer, aInitLoopTimer, sTTimer, fSATimer;
     public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, aFGState = -1, specTransferState = -1, fSAState = -1;
     private boolean aInitLoop, frontScore = false, backScore = true, automationActive = false;
@@ -223,7 +223,7 @@ public class Robot {
         else if (g1.left_bumper)
             speed = 0.25;
         else
-            speed = 0.75;
+            speed = 0.9;
 
 
         l.manual(g2.left_trigger, g2.right_trigger);
