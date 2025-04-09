@@ -38,12 +38,12 @@ public class SixSamp extends OpModeCommand {
                                         new FollowPath(r.getF(), config.core.paths.SixSamp.score1())
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSamp.grab2())
-                                .alongWith(
-                                        new WaitCommand(375)
+                                                .alongWith(
+                                        new WaitCommand(1000)
                                                 .andThen(
                                         new InstantCommand(() -> r.getE().toFull())
                                                 .andThen(
-                                                        new WaitCommand(375),
+                                                        new WaitCommand(450),
                                                         new Submersible(r),
                                                         new Transfer(r)
                                                 )
@@ -55,11 +55,11 @@ public class SixSamp extends OpModeCommand {
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSamp.grab3())
                                 .alongWith(
-                                        new WaitCommand(450)
+                                        new WaitCommand(1000)
                                                 .andThen(
                                         new InstantCommand(() -> r.getE().toFull())
                                                 .andThen(
-                                                        new WaitCommand(375),
+                                                        new WaitCommand(450),
                                                         new Submersible(r),
                                                         new Transfer(r)
                                                 )
@@ -70,16 +70,16 @@ public class SixSamp extends OpModeCommand {
                                         new FollowPath(r.getF(), config.core.paths.SixSamp.score3())
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSamp.grab4())
-                                .alongWith(
-                                        new WaitCommand(375)
-                                                .andThen(
+                                                .alongWith(
+                                                        new WaitCommand(1000)
+                                                                .andThen(
                                                         new InstantCommand(() -> r.getE().toFull())
                                                                 .andThen(
-                                                                        new WaitCommand(375),
+                                                                        new WaitCommand(450),
                                                                         new Submersible(r),
                                                                         new Transfer(r)
                                                                 )
-                                                )
+                                                        )
                                 ),
                         new Bucket(r)
                                 .alongWith(
@@ -90,15 +90,20 @@ public class SixSamp extends OpModeCommand {
                                         new InstantCommand(() -> {
                                             r.getO().transfer();
                                             r.getI().hover();
-                                            r.getE().toZero();
+                                            r.getE().toFull();
                                         }
                                         )
                                                 .andThen(
-                                                        new WaitCommand(500),
+                                                        new WaitCommand(2500),
                                                         new Submersible(r)
                                                 )
-                                )
-
+                                ),
+                        new FollowPath(r.getF(), config.core.paths.SixSamp.score3())
+                                .alongWith(
+                                        new WaitCommand(500),
+                                        new Transfer(r)
+                                ),
+                        new Bucket(r)
                 )
         );
     }

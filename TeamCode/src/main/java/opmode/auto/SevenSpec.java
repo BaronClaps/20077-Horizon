@@ -43,6 +43,7 @@ public class SevenSpec extends OpModeCommand {
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score1()).setCompletionThreshold(0.975)
                                                 .andThen(
+                                                        new WaitCommand(100),
                                                         new InstantCommand(() -> {
                                                             r.getI().cloud();
                                                             r.getE().toFull();
