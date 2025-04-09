@@ -39,7 +39,7 @@ public class RobotConstants {
     public static double intakePivotTransfer= 0.625;
     public static double intakePivotGround = 0.67;
     public static double intakePivotHover = 0.43;
-    public static double intakePivotCloud = 0.645;
+    public static double intakePivotCloud = 0.605;
     public static double intakePivotSpecimen = 0;
     public static double intakeRotatePerDegree = 0.0011;
     public static double intakePivotDrag = 1;
