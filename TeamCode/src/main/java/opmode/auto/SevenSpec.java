@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.pedropathing.commands.FollowPath;
+import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import config.commands.AlignSevenSpecFirst;
@@ -41,18 +42,18 @@ public class SevenSpec extends OpModeCommand {
                 new SequentialCommandGroup(
                         new ForwardChamber(r)
                                 .alongWith(
-                                        new FollowPath(r.getF(), config.core.paths.SixSpecOneSample.score1()).setCompletionThreshold(0.975)
-                                                .andThen(
-                                                        new WaitCommand(100),
-                                                        new InstantCommand(() -> {
-                                                            r.getI().cloud();
-                                                            r.getE().toFull();
-                                                        })
-                                                ),
-                                        new WaitCommand(1000)
-                                                .andThen(new InstantCommand(() -> {
-                                                    r.getI().cloud();
-                                                }))
+                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.score1()).setCompletionThreshold(0.975)
+                                                .alongWith(
+                                                        new WaitUntilCommand(() -> r.getF().getCurrentTValue() > 0.8)
+                                                                .andThen(
+                                                                        new InstantCommand(
+                                                                                () -> {
+                                                                                    r.getI().hover();
+                                                                                    r.getE().toFull();
+                                                                                }
+                                                                        )
+                                                                )
+                                                )
                                 ),
                         new AlignSevenSpecFirst(r, r.getM().getManualPoses().get(0))
                                 .andThen(
@@ -218,12 +219,9 @@ public class SevenSpec extends OpModeCommand {
         super.init_loop();
         r.getM().update(gamepad2);
 
-        if(gamepad2.left_stick_button) {
-            config.core.paths.SevenSpec.sub2 = r.getM().getManualPoses().get(0).getPose().copy();
-            config.core.paths.SevenSpec.sub3 = r.getM().getManualPoses().get(1).getPose().copy();
-            config.core.paths.SevenSpec.score1.setY(r.getM().getManualPoses().get(0).getPose().getY());
-            config.core.paths.SevenSpec.score2.setY(r.getM().getManualPoses().get(1).getPose().getY());
-        }
+            config.core.paths.SevenSpec.score1 = new Pose(config.core.paths.SevenSpec.score1.getX(), r.getM().getManualPoses().get(0).getPose().getY());
+            config.core.paths.SevenSpec.score2 = new Pose(config.core.paths.SevenSpec.score2.getX(), r.getM().getManualPoses().get(1).getPose().getY());
+
         r.getT().addLine();
         r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
         r.getT().addData("sub3", config.core.paths.SevenSpec.sub3);

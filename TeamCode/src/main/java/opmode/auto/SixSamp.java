@@ -39,7 +39,7 @@ public class SixSamp extends OpModeCommand {
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSamp.grab2())
                                                 .alongWith(
-                                        new WaitCommand(1000)
+                                        new WaitCommand(700)
                                                 .andThen(
                                         new InstantCommand(() -> r.getE().toFull())
                                                 .andThen(
@@ -55,7 +55,7 @@ public class SixSamp extends OpModeCommand {
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSamp.grab3())
                                 .alongWith(
-                                        new WaitCommand(1000)
+                                        new WaitCommand(500)
                                                 .andThen(
                                         new InstantCommand(() -> r.getE().toFull())
                                                 .andThen(
@@ -71,7 +71,7 @@ public class SixSamp extends OpModeCommand {
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSamp.grab4())
                                                 .alongWith(
-                                                        new WaitCommand(1000)
+                                                        new WaitCommand(500)
                                                                 .andThen(
                                                         new InstantCommand(() -> r.getE().toFull())
                                                                 .andThen(
@@ -90,18 +90,40 @@ public class SixSamp extends OpModeCommand {
                                         new InstantCommand(() -> {
                                             r.getO().transfer();
                                             r.getI().hover();
-                                            r.getE().toFull();
                                         }
                                         )
                                                 .andThen(
-                                                        new WaitCommand(2500),
+                                                        new WaitCommand(1500),
+                                                        new InstantCommand(() -> r.getE().toFull()),
+                                                        new WaitCommand(400),
                                                         new Submersible(r)
                                                 )
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSamp.score3())
                                 .alongWith(
-                                        new WaitCommand(500),
+                                        new WaitCommand(450),
                                         new Transfer(r)
+                                ),
+                        new Bucket(r)
+                                .andThen(new FollowPath(r.getF(), config.core.paths.SixSamp.sub3())
+                                        .alongWith(
+                                                new InstantCommand(() -> {
+                                                    r.getO().transfer();
+                                                    r.getI().hover();
+                                                }
+                                                )
+                                                        .andThen(
+                                                                new WaitCommand(1500),
+                                                                new InstantCommand(() -> r.getE().toFull()),
+                                                                new WaitCommand(400),
+                                                                new Submersible(r)
+                                                        )
+                                        ),
+                        new FollowPath(r.getF(), config.core.paths.SixSamp.score3())
+                                                .alongWith(
+                                                        new WaitCommand(450),
+                                                        new Transfer(r)
+                                                )
                                 ),
                         new Bucket(r)
                 )

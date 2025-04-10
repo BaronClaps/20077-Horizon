@@ -8,13 +8,13 @@ import com.pedropathing.pathgen.PathChain;
 
 public class SixSamp {
     public static Pose start = new Pose(6.75, 114, Math.toRadians(270));
-    public static Pose score = new Pose(18, 126, Math.toRadians(-45));
-    public static Pose second = new Pose (19, 123.25, Math.toRadians(0));
+    public static Pose score = new Pose(17, 128, Math.toRadians(-45));
+    public static Pose second = new Pose (19, 124.25, Math.toRadians(0));
     public static Pose third = new Pose(18.75, 131, Math.toRadians(0));
-    public static Pose fourth = new Pose(19.5, 133, Math.toRadians(20.25));
+    public static Pose fourth = new Pose(20, 133, Math.toRadians(20.25));
     public static Pose sub2 = new Pose(63, 94, Math.toRadians(-90));
     public static Pose subControlPoint = new Pose(66.40214477211796, 111.95710455764075);
-    public static Pose sub3 = new Pose(63, 92, Math.toRadians(-90));
+    public static Pose sub3 = new Pose(67, 92, Math.toRadians(-90));
     public static Pose park = new Pose(57.25, 96, Math.toRadians(270));
     public static PathChain score1() {
         return new PathBuilder()
@@ -101,6 +101,7 @@ public class SixSamp {
                         )
                 )
                 .setLinearHeadingInterpolation(score.getHeading(), sub2.getHeading())
+                .setZeroPowerAccelerationMultiplier(1.5)
                 .build();
     }
 
@@ -123,6 +124,7 @@ public class SixSamp {
                         )
                 )
                 .setLinearHeadingInterpolation(score.getHeading(), sub3.getHeading())
+                .setZeroPowerAccelerationMultiplier(1.5)
                 .build();
     }
 

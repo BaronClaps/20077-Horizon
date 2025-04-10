@@ -19,8 +19,9 @@ public class RobotConstants {
     public static double outtakeRotateRightSpecimenGrab0 = 0.74;
     public static double outtakePivotTransfer= 0.85; //0
     public static double outtakePivotScore = 0.35;
-    public static double outtakePivotSpecimenGrab180 = 0.9;
+    public static double outtakePivotSpecimenGrab180 = 0.89;
     public static double outtakePivotSpecimenScore180 = 0.36;
+    public static double outtakePivotHalfScore = 0.5;
 
     public static double outtakePivotSpecimenGrab0 = 0.1;
     public static double outtakePivotSpecimenScore0 = 0.59;

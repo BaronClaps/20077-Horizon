@@ -25,7 +25,7 @@ public class Outtake {
     }
     
     public enum PivotState {
-        TRANSFER, SCORE, SPECIMENGRAB180, SPECIMENSCORE180, SPECIMENGRAB0, SPECIMENSCORE0
+        TRANSFER, SCORE, SPECIMENGRAB180, SPECIMENSCORE180, SPECIMENGRAB0, SPECIMENSCORE0, HALFSCORE
     }
 
     public Servo grab, leftRotate, rightRotate, leftPivot, rightPivot;
@@ -118,6 +118,10 @@ public class Outtake {
             leftPivot.setPosition(outtakePivotSpecimenScore0);
             rightPivot.setPosition(outtakePivotSpecimenScore0);
             this.pivotState = PivotState.SPECIMENSCORE0;
+        } else if (pivotState == PivotState.HALFSCORE) {
+             leftPivot.setPosition(outtakePivotHalfScore);
+             rightPivot.setPosition(outtakePivotHalfScore);
+             this.pivotState = PivotState.HALFSCORE;
         }
     }
 
@@ -143,6 +147,12 @@ public class Outtake {
     public void score() {
         setRotateState(RotateState.SCORE);
         setPivotState(PivotState.SCORE);
+        setGrabState(GrabState.CLOSED);
+    }
+
+    public void halfScore() {
+        setRotateState(RotateState.SCORE);
+        setPivotState(PivotState.HALFSCORE);
         setGrabState(GrabState.CLOSED);
     }
 
