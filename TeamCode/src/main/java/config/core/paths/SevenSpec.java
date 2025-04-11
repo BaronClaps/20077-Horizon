@@ -35,7 +35,6 @@ public class SevenSpec {
 
     public static PathChain score1() {
         return new PathBuilder()
-                .setNoDeceleration()
                 .addPath(
                         new BezierLine(
                                 new Point(start),
@@ -43,21 +42,20 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(start.getHeading())
-                .setZeroPowerAccelerationMultiplier(3)
+                .setZeroPowerAccelerationMultiplier(5)
                 .build();
     }
 
     public static PathChain sub2() {
         return new PathBuilder()
-                .setGlobalDeceleration()
                 .addPath(
                         new BezierLine(
                                 new Point(score1),
                                 new Point(sub2)
                         )
                 )
-                .setConstantHeadingInterpolation(score1.getHeading())
-                .setZeroPowerAccelerationMultiplier(3)
+                .setConstantHeadingInterpolation(0)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
 
     }
@@ -101,15 +99,14 @@ public class SevenSpec {
 
     public static PathChain sub3() {
         return new PathBuilder()
-                .setGlobalDeceleration()
                 .addPath(
                         new BezierLine(
                                 new Point(score2),
                                 new Point(sub3)
                         )
                 )
-                .setConstantHeadingInterpolation(score2.getHeading())
-                .setZeroPowerAccelerationMultiplier(3)
+                .setConstantHeadingInterpolation(0)
+                .setZeroPowerAccelerationMultiplier(4)
                 .build();
 
     }
