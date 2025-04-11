@@ -81,7 +81,6 @@ public class ManualPose {
     public void calculate() {
         xOffset = getDistance(xTabs);
         yOffset = getDistance(yTabs);
-        xOffset += (Math.abs(rotation / 22.5) * 0.25);
     }
 
     public double getDistance(double tiles) {

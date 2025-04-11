@@ -133,6 +133,10 @@ public class Lift {
         return Math.abs(getPos() - target) < 25;
     }
 
+    public boolean halfwayToTarget() {
+        return Math.abs(getPos() - target) < target/2;
+    }
+
     public void pidOn() {
         pidLevel = 1;
     }

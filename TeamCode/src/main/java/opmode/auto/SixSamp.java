@@ -95,7 +95,7 @@ public class SixSamp extends OpModeCommand {
                                                 .andThen(
                                                         new WaitCommand(1500),
                                                         new InstantCommand(() -> r.getE().toFull()),
-                                                        new WaitCommand(400),
+                                                        new WaitCommand(600),
                                                         new Submersible(r)
                                                 )
                                 ),
@@ -115,7 +115,7 @@ public class SixSamp extends OpModeCommand {
                                                         .andThen(
                                                                 new WaitCommand(1500),
                                                                 new InstantCommand(() -> r.getE().toFull()),
-                                                                new WaitCommand(400),
+                                                                new WaitCommand(600),
                                                                 new Submersible(r)
                                                         )
                                         ),

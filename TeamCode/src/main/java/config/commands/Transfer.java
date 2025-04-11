@@ -51,7 +51,7 @@ public class Transfer extends CommandBase {
                 if (timer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
                     robot.getO().close();
                     setState(4);
-                } else if (timer.getElapsedTimeSeconds() > 0.65 && temp == 1) {
+                } else if (timer.getElapsedTimeSeconds() > 0.6 && temp == 1) {
                     robot.getO().close();
                     setState(4);
                 }

@@ -8,7 +8,7 @@ import com.pedropathing.pathgen.PathChain;
 
 public class SixSamp {
     public static Pose start = new Pose(6.75, 114, Math.toRadians(270));
-    public static Pose score = new Pose(17, 128, Math.toRadians(-45));
+    public static Pose score = new Pose(19.5, 128.5, Math.toRadians(-45));
     public static Pose second = new Pose (19, 124.25, Math.toRadians(0));
     public static Pose third = new Pose(18.75, 131, Math.toRadians(0));
     public static Pose fourth = new Pose(20, 133, Math.toRadians(20.25));
@@ -113,6 +113,7 @@ public class SixSamp {
                         )
                 )
                 .setLinearHeadingInterpolation(sub2.getHeading(), score.getHeading())
+                .setZeroPowerAccelerationMultiplier(1.5)
                 .build();
     }
 
@@ -136,6 +137,7 @@ public class SixSamp {
                         )
                 )
                 .setLinearHeadingInterpolation(sub3.getHeading(), score.getHeading())
+                .setZeroPowerAccelerationMultiplier(1.5)
                 .build();
     }
 }

@@ -452,10 +452,10 @@ public class Robot {
                 else
                     temp = 0;
 
-                if (tTimer.getElapsedTimeSeconds() > 0.6 && temp == 0) {
+                if (tTimer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
                     o.close();
                     setTransferState(4);
-                } else if (tTimer.getElapsedTimeSeconds() > 0.65 && temp == 1) {
+                } else if (tTimer.getElapsedTimeSeconds() > 0.6 && temp == 1) {
                     o.close();
                     setTransferState(4);
                 }
@@ -577,7 +577,7 @@ public class Robot {
                 else
                     temp = 0;
 
-                if (sTTimer.getElapsedTimeSeconds() > 0.2 && temp == 0) {
+                if (sTTimer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
                     getO().close();
                     setSpecTransferState(4);
                 } else if (sTTimer.getElapsedTimeSeconds() > 0.45 && temp == 1) {

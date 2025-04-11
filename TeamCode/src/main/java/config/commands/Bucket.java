@@ -31,35 +31,30 @@ public class Bucket extends CommandBase {
                 break;
             case 2:
                 if(timer.getElapsedTimeSeconds() > 0.1) {
-                    robot.getO().halfScore();
-                }
-                if (!robot.getF().isBusy() && robot.getL().roughlyAtTarget() && timer.getElapsedTimeSeconds() > 0.25) {
-                    setState(3);
-                }
+                    robot.getO().halfScore(); }
+                if (!robot.getF().isBusy() && robot.getL().halfwayToTarget() && timer.getElapsedTimeSeconds() > 0.25) {
+                    setState(3); }
                 break;
             case 3:
-                if (timer.getElapsedTimeSeconds() > 0) {
+                if (timer.getElapsedTimeSeconds() > 0.25) {
                     robot.getO().score();
-                    setState(4);
-                }
+                    setState(4); }
                 break;
             case 4:
-                if (timer.getElapsedTimeSeconds() > 0.25) {
+                if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getO().open();
-                    setState(5);
-                }
+                    setState(5); }
+                break;
             case 5:
                 if (timer.getElapsedTimeSeconds() > 0.4) {
                     robot.getL().toZero();
                     robot.getO().transfer();
                     robot.getI().hover();
-                    setState(6);
-                }
+                    setState(6); }
                 break;
             case 6:
                 if (timer.getElapsedTimeSeconds() > 0.3) {
-                    setState(-1);
-                }
+                    setState(-1); }
                 break;
 
         }

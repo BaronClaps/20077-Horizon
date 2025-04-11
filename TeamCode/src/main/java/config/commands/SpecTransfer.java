@@ -54,10 +54,10 @@ public class SpecTransfer extends CommandBase {
                 else
                     temp = 0;
 
-                if (timer.getElapsedTimeSeconds() > 0.2 && temp == 0) {
+                if (timer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
                     robot.getO().close();
                     setState(4);
-                } else if (timer.getElapsedTimeSeconds() > 0.45 && temp == 1) {
+                } else if (timer.getElapsedTimeSeconds() > 0.6 && temp == 1) {
                     robot.getO().close();
                     setState(4);
                 }
