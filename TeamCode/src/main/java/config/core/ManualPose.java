@@ -20,7 +20,7 @@ public class ManualPose {
         if (spec)
             defaultPose = new Pose(23.5 + 22, 72, Math.toRadians(0));
         else
-            defaultPose = new Pose(0, 0, 0);
+            defaultPose = new Pose(63, 94, Math.toRadians(-90));
     }
 
     public void f(double tabs) {

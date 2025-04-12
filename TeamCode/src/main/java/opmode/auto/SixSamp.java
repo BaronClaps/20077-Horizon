@@ -5,8 +5,11 @@ import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.commands.FollowPath;
+import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import config.commands.AlignSixSampFirst;
+import config.commands.AlignSixSampSecond;
 import config.commands.Bucket;
 import config.commands.Submersible;
 import config.commands.Transfer;
@@ -85,7 +88,7 @@ public class SixSamp extends OpModeCommand {
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.SixSamp.score4())
                                 ),
-                        new FollowPath(r.getF(), config.core.paths.SixSamp.sub2())
+                        new AlignSixSampFirst(r, r.getM().getManualPoses().get(0))
                                 .alongWith(
                                         new InstantCommand(() -> {
                                             r.getO().transfer();
@@ -105,7 +108,7 @@ public class SixSamp extends OpModeCommand {
                                         new Transfer(r)
                                 ),
                         new Bucket(r)
-                                .andThen(new FollowPath(r.getF(), config.core.paths.SixSamp.sub3())
+                                .andThen(new AlignSixSampSecond(r, r.getM().getManualPoses().get(1))
                                         .alongWith(
                                                 new InstantCommand(() -> {
                                                     r.getO().transfer();
@@ -128,5 +131,17 @@ public class SixSamp extends OpModeCommand {
                         new Bucket(r)
                 )
         );
+    }
+
+    @Override
+    public void init_loop() {
+        super.init_loop();
+        r.getM().update(gamepad2);
+
+        r.getT().addLine();
+        r.getT().addData("sub2", config.core.paths.SixSamp.sub2);
+        r.getT().addData("sub3", config.core.paths.SixSamp.sub3);
+        r.getT().addLine();
+        r.getT().update();
     }
 }
