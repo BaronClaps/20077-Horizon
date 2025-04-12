@@ -32,7 +32,6 @@ public class AlignSevenSpecSecond extends CommandBase {
         switch (state) {
             case 1:
                 robot.getI().rotateDegrees(manualPose.getRotation());//robot.getV().getBestDetectionAngle());
-                robot.getE().toFull();
                 SevenSpec.sub3 = manualPose.getPose().copy();
                 robot.getF().followPath(SevenSpec.sub3());
                 setState(2);

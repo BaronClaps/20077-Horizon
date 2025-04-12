@@ -58,7 +58,6 @@ public class SevenSpec extends OpModeCommand {
                         new AlignSevenSpecFirst(r, r.getM().getManualPoses().get(0))
                                 .andThen(
                                         new Submersible(r)
-
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit2())
                                 .alongWith(

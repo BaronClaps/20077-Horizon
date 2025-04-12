@@ -320,7 +320,7 @@ public class Outtake {
         setRotateState(RotateState.SPECIMENSCORE180);
         leftPivot.setPosition(0.15);
         rightPivot.setPosition(0.15);
-        setGrabState(GrabState.CLOSED);
+        setGrabState(GrabState.OPEN);
     }
 
     public void afterSpecScore() {

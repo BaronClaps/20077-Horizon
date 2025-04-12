@@ -84,6 +84,10 @@ public class ManualPose {
     }
 
     public double getDistance(double tiles) {
+
+        if (tiles == 0)
+            return 0;
+
         double i = 0;
         boolean isNegative = tiles < 0;
         tiles = Math.abs(tiles);

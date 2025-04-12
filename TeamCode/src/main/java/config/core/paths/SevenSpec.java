@@ -13,7 +13,7 @@ public class SevenSpec {
 
     public static Pose start = new Pose(8, 65.5, Math.toRadians(0));
     public static Pose score1 = new Pose(43, 72 + (-3 * 1.181), Math.toRadians(0));
-    public static Pose sub2 = new Pose(25 + (13 * 1.181), 72 + (-3 * 1.181), Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
+    public static Pose sub2 = new Pose(25 + (13 * 1.181), 72, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2 = new Pose(21,25.75, Math.toRadians(0));
     public static Pose grab2 = new Pose(17.5, 25.75, Math.toRadians(0));
     public static Pose score2 = new Pose(43, 72, Math.toRadians(0));
@@ -55,7 +55,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(0)
-                .setZeroPowerAccelerationMultiplier(4)
+                .setZeroPowerAccelerationMultiplier(1)
                 .build();
 
     }
@@ -106,7 +106,7 @@ public class SevenSpec {
                         )
                 )
                 .setConstantHeadingInterpolation(0)
-                .setZeroPowerAccelerationMultiplier(4)
+                .setZeroPowerAccelerationMultiplier(1)
                 .build();
 
     }
@@ -189,7 +189,7 @@ public class SevenSpec {
                         // Line 4
                         new BezierLine(
                                 new Point(34.000, 37.000, Point.CARTESIAN),
-                                new Point(29.500, 37.000, Point.CARTESIAN)
+                                new Point(29.500, 36.000, Point.CARTESIAN)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(305), Math.toRadians(250))
@@ -203,7 +203,7 @@ public class SevenSpec {
                 .addPath(
                         // Line 5
                         new BezierLine(
-                                new Point(29.500, 37.000, Point.CARTESIAN),
+                                new Point(29.500, 36.000, Point.CARTESIAN),
                                 new Point(36.000, 25.000, Point.CARTESIAN)
                         )
                 )
@@ -219,7 +219,7 @@ public class SevenSpec {
                         // Line 6
                         new BezierLine(
                                 new Point(36.000, 25.000, Point.CARTESIAN),
-                                new Point(27.000, 29.000, Point.CARTESIAN)
+                                new Point(27.000, 27.000, Point.CARTESIAN)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(315), Math.toRadians(250))
@@ -232,7 +232,7 @@ public class SevenSpec {
                 .setGlobalDeceleration()
                 .addPath(
                         new BezierCurve(
-                                new Point(27, 29, Point.CARTESIAN),
+                                new Point(27, 27, Point.CARTESIAN),
                                 new Point(grab3Drag.getX() + 10, grab3Drag.getY()),
                                 new Point(grab3Drag)
                         )
