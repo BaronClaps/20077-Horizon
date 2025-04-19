@@ -6,14 +6,14 @@ import com.pedropathing.util.Timer;
 import config.core.Robot;
 import config.subsystems.Intake;
 
-public class Submersible extends CommandBase {
+public class CSubmersible extends CommandBase {
     private final Robot robot;
 
     private int state = 0;
     private Timer timer = new Timer();
     private boolean alrCloud = false;
 
-    public Submersible(Robot robot) {
+    public CSubmersible(Robot robot) {
         this.robot = robot;
     }
 
@@ -39,19 +39,17 @@ public class Submersible extends CommandBase {
 
                 break;
             case 2:
-                if(timer.getElapsedTimeSeconds() > 0.45) {
-                    robot.getI().ground();
-                    setState(3);
-                }
+                robot.getI().ground();
+                setState(3);
                 break;
             case 3:
-                if (timer.getElapsedTimeSeconds() > 0.2) {
+                if (timer.getElapsedTimeSeconds() > 0.15) {
                     robot.getI().close();
                     setState(4);
                 }
                 break;
             case 4:
-                if (timer.getElapsedTimeSeconds() > 0.25) {
+                if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getI().hover();
                     setState(5);
                 }

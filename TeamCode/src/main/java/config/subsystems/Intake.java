@@ -30,7 +30,7 @@ public class Intake {
     public RotateState rotateState;
     public PivotState pivotState;
     private Telemetry telemetry;
-    private double rotateDegrees = 0;
+    public double rotateDegrees = 0;
 
     public Intake(HardwareMap hardwareMap, Telemetry telemetry) {
         grab = hardwareMap.get(Servo.class, "iG");
@@ -187,6 +187,14 @@ public class Intake {
         setGrabState(GrabState.OPEN);
         setRotateState(RotateState.DRAG);
         setPivotState(PivotState.DRAG);
+    }
+
+    public void cDrag() {
+        setGrabState(GrabState.OPEN);
+        setRotateState(RotateState.DRAG);
+        setPivotState(PivotState.DRAG);
+        leftRotate.setPosition(0.275);
+        rightRotate.setPosition(0.275);
     }
 
     public void init() {

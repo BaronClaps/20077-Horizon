@@ -20,7 +20,7 @@ public class ManualPose {
         if (spec)
             defaultPose = new Pose(23.5 + 22, 72, Math.toRadians(0));
         else
-            defaultPose = new Pose(63, 94, Math.toRadians(-90));
+            defaultPose = new Pose(75, 95, Math.toRadians(-90));
     }
 
     public void f(double tabs) {
@@ -95,47 +95,47 @@ public class ManualPose {
         if (tiles == 0) {
             i = 0;
         } else if (tiles == 0.5) {
-            i = 0.5;
+            i = 0 + (1.125 - 0)/2;
         } else if (tiles == 1) {
             i = 1.125;
         } else if (tiles == 1.5) {
-            i = 1.125 + 0.5;
+            i = 1.125 + ((2 + (double) 3 / 8) - 1.125)/2;
         } else if (tiles == 2) {
             i = 2 + (double) 3 / 8;
         } else if (tiles == 2.5) {
-            i = 2 + (double) 3 / 8 + 0.5;
+            i = (2 + (double) 3 / 8) + ((3 + (double) 1 / 4) - (2 + (double) 3 / 8))/2;
         } else if (tiles == 3) {
             i = 3 + (double) 1 / 4;
         } else if (tiles == 3.5) {
-            i = 3 + (double) 1 / 4 + 0.5;
+            i = (3 + (double) 1 / 4) + ((5) - (3 + (double) 1 / 4))/2;
         } else if (tiles == 4) {
             i = 5;
         } else if (tiles == 4.5) {
-            i = 5 + 0.5;
+            i = 5 + ((5 + (double) 3 / 4) - 5)/2;
         } else if (tiles == 5) {
             i = 5 + (double) 3 / 4;
         } else if (tiles == 5.5) {
-            i = 5 + (double) 3 / 4 + 0.5;
+            i = (5 + (double) 3 / 4) + ((7 + (double)( 3 / 8)) - (5 + (double) 3 / 4))/2;
         } else if (tiles == 6) {
             i = 7 + (double) 3 / 8;
         } else if (tiles == 6.5) {
-            i = 7 + (double) 3 / 8 + 0.5;
+            i = 7 + (double) 3 / 8 + ((8 + (double) 1 / 4) - (7 + (double) 3 / 8))/2;
         } else if (tiles == 7) {
             i = 8 + (double) 1 / 4;
         } else if (tiles == 7.5) {
-            i = 8 + (double) 1 / 4 + 0.5;
+            i = 8 + (double) 1 / 4 + ((9 + (double) 5 / 8) - (8 + (double) 1 / 4))/2;
         } else if (tiles == 8) {
             i = 9 + (double) 5 / 8;
         } else if (tiles == 8.5) {
-            i = 9 + (double) 5 / 8 + 0.5;
+            i = 9 + (double) 5 / 8 + ((10 + (double) 1 / 2) - (9 + (double) 5 / 8))/2;
         } else if (tiles == 9) {
             i = 10 + (double) 1 / 2;
         } else if (tiles == 9.5) {
-            i = 10 + (double) 1 / 2 + 0.5;
+            i = 10 + (double) 1 / 2 + ((11 + (double) 3 / 8) - (10 + (double) 1 / 2))/2;
         } else if (tiles == 10) {
             i = 11 + (double) 3 / 8;
         } else if (tiles == 10.5) {
-            i = 11 + (double) 3 / 8 + 0.5;
+            i = 11 + (double) 3 / 8 + ((12 + (double) 1 / 4) - (11 + (double) 3 / 8))/2;
         }
 
         return isNegative ? -i : i;

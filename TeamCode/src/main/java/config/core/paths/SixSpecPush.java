@@ -10,20 +10,20 @@ import com.pedropathing.pathgen.Point;
 public class SixSpecPush {
 
     public static Pose start = new Pose(8, 65.5, Math.toRadians(0));
-    public static Pose score1 = new Pose(42, 66, Math.toRadians(0));
+    public static Pose score1 = new Pose(42, 72, Math.toRadians(0));
     public static Pose sub2 = new Pose(25, 66, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2 = new Pose(24,48, Math.toRadians(225));
-    public static Pose grab2 = new Pose(7.75, 16, Math.toRadians(180));
-    public static Pose score2 = new Pose(39, 76, Math.toRadians(180));
-    public static Pose grab3 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score3 = new Pose(39, 75, Math.toRadians(180));
-    public static Pose grab4 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score4 = new Pose(39, 73, Math.toRadians(180));
-    public static Pose grab5 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score5 = new Pose(39, 71, Math.toRadians(180));
-    public static Pose grab6 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score6 = new Pose(39, 71, Math.toRadians(270));
-    public static Pose park = new Pose(24,48, Math.toRadians(225));
+    public static Pose grab2 = new Pose(7.5, 37.5, Math.toRadians(180));
+    public static Pose score2 = new Pose(39, 68, Math.toRadians(180));
+    public static Pose grab3 = new Pose(7.5, 37.5, Math.toRadians(180));
+    public static Pose score3 = new Pose(39, 68, Math.toRadians(180));
+    public static Pose grab4 = new Pose(7.5, 37.5, Math.toRadians(180));
+    public static Pose score4 = new Pose(39, 68, Math.toRadians(180));
+    public static Pose grab5 = new Pose(7.5, 37.5, Math.toRadians(180));
+    public static Pose score5 = new Pose(39, 68, Math.toRadians(180));
+    public static Pose grab6 = new Pose(7.1, 37.5, Math.toRadians(180));
+    public static Pose score6 = new Pose(39, 68, Math.toRadians(270));
+    public static Pose park = new Pose(7.1,37.5, Math.toRadians(225));
 
     public static PathChain score1() {
         return new PathBuilder()
@@ -34,7 +34,7 @@ public class SixSpecPush {
                         )
                 )
                 .setConstantHeadingInterpolation(start.getHeading())
-                .setZeroPowerAccelerationMultiplier(3)
+                .setZeroPowerAccelerationMultiplier(5)
                 .build();
     }
 
@@ -47,7 +47,7 @@ public class SixSpecPush {
                         )
                 )
                 .setConstantHeadingInterpolation(start.getHeading())
-                .setZeroPowerAccelerationMultiplier(3)
+                .setZeroPowerAccelerationMultiplier(2)
                 .build();
 
     }
@@ -56,12 +56,13 @@ public class SixSpecPush {
         return new PathBuilder()
                 .addPath(new BezierCurve(sub2, new Pose(sub2.getX() - 10, sub2.getY() + 10), deposit2))
                 .setLinearHeadingInterpolation(sub2.getHeading(), deposit2.getHeading())
-                .setZeroPowerAccelerationMultiplier(4)
+                .setZeroPowerAccelerationMultiplier(6)
                 .build();
     }
 
     public static PathChain push() {
         return new PathBuilder()
+                .setNoDeceleration()
                 .addPath(
                         new BezierCurve(
                                 new Point(deposit2),
@@ -88,7 +89,7 @@ public class SixSpecPush {
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Point(52.5, 14.000, Point.CARTESIAN),
+                                new Point(52.5, 15.000, Point.CARTESIAN),
                                 new Point(28.000, 15.000, Point.CARTESIAN)
                         )
                 )
@@ -97,14 +98,14 @@ public class SixSpecPush {
                         new BezierCurve(
                                 new Point(28.000, 15.000, Point.CARTESIAN),
                                 new Point(65.000, 21.000, Point.CARTESIAN),
-                                new Point(52.5, 9.5, Point.CARTESIAN)
+                                new Point(52.5, 9, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Point(52.5, 9.5, Point.CARTESIAN),
-                                new Point(20, 9.5, Point.CARTESIAN)
+                                new Point(52.5, 9, Point.CARTESIAN),
+                                new Point(20, 9, Point.CARTESIAN)
                         )
                 )
                 .setZeroPowerAccelerationMultiplier(6)
@@ -114,9 +115,11 @@ public class SixSpecPush {
 
     public static PathChain grab2() {
         return new PathBuilder()
+                .setGlobalDeceleration()
                 .addPath(
-                        new BezierLine(
+                        new BezierCurve(
                                 new Point(20, 9.5, Point.CARTESIAN),
+                                new Point(grab2.getX() + 20, grab2.getY()),
                                 new Point(grab2)
                         )
                 )
@@ -134,12 +137,15 @@ public class SixSpecPush {
                                 score2
                         )
                 )
+                .setNoDeceleration()
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
     public static PathChain grab3() {
         return new PathBuilder()
+                .setGlobalDeceleration()
                 .addPath(
                         new BezierLine(
                                 score2,
@@ -159,12 +165,15 @@ public class SixSpecPush {
                                 score3
                         )
                 )
+                .setNoDeceleration()
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
     public static PathChain grab4() {
         return new PathBuilder()
+                .setGlobalDeceleration()
                 .addPath(
                         new BezierLine(
                                 score3,
@@ -184,12 +193,15 @@ public class SixSpecPush {
                                 score4
                         )
                 )
+                .setNoDeceleration()
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
     public static PathChain grab5() {
         return new PathBuilder()
+                .setGlobalDeceleration()
                 .addPath(
                         new BezierLine(
                                 score4,
@@ -209,12 +221,15 @@ public class SixSpecPush {
                                 score5
                         )
                 )
+                .setNoDeceleration()
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
     public static PathChain grab6() {
         return new PathBuilder()
+                .setGlobalDeceleration()
                 .addPath(
                         new BezierLine(
                                 score5,
@@ -235,22 +250,23 @@ public class SixSpecPush {
                                 score6
                         )
                 )
-                .setZeroPowerAccelerationMultiplier(4)
+                .setNoDeceleration()
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 
     public static PathChain park() {
         return new PathBuilder()
+                .setGlobalDeceleration()
                 .addPath(
-                        new BezierCurve(
+                        new BezierLine(
                                 score6,
-                                new Pose(score6.getX() - 10, score6.getY()),
                                 park
                         )
                 )
-                .setLinearHeadingInterpolation(score6.getHeading(), park.getHeading())
-                .setZeroPowerAccelerationMultiplier(7)
+                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(8)
                 .build();
     }
 }

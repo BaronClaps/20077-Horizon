@@ -6,19 +6,18 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.commands.FollowPath;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import config.commands.Bucket;
-import config.commands.Chamber;
-import config.commands.ForwardChamber;
-import config.commands.Specimen;
 import config.commands.Submersible;
 import config.commands.Transfer;
 import config.core.util.Alliance;
 import config.core.util.OpModeCommand;
 import config.core.Robot;
 
-@Autonomous(name = "0+4", group = "...Unsigma")
-public class FourSamp extends OpModeCommand {
+@Disabled
+@Autonomous(name = "0+4dsa", group = "...Unsigma")
+public class OLDFourSamp extends OpModeCommand {
     Robot r;
 
     @Override

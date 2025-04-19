@@ -2,8 +2,6 @@ package config.core;
 
 import static config.core.util.Opmode.*;
 
-import android.sax.StartElementListener;
-
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Timer;
@@ -21,7 +19,7 @@ import config.subsystems.Intake;
 import config.subsystems.Lift;
 import config.subsystems.Light;
 import config.subsystems.Outtake;
-import config.vision.limelight.Vision;
+import config.vision.limelight.old.OldVision;
 
 public class Robot {
     private HardwareMap h;
@@ -35,7 +33,7 @@ public class Robot {
     private Outtake o;
     private Light j;
     private ManualInput m;
-    private Vision v;
+    private OldVision v;
     private Opmode op = TELEOP;
     public static Pose autoEndPose = new Pose();
 
@@ -129,6 +127,7 @@ public class Robot {
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
         m = new ManualInput(this.t, this.g2, subSamples, spec);
+        j = new Light(this.h, this.t);
 
         this.g2 = new Gamepad();
         this.p2 = new Gamepad();
@@ -328,7 +327,7 @@ public class Robot {
         }
 
         if (g2.right_stick_button)
-            l.toZero();
+            o.specimenGrab0();
 
         if (g2.back) {
             i.drag();
@@ -398,7 +397,7 @@ public class Robot {
         return j;
     }
 
-    public Vision getV() {
+    public OldVision getV() {
         return v;
     }
 

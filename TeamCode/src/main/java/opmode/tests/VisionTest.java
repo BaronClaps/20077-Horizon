@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import config.core.ManualInput;
 import config.core.paths.SixSpecPush;
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
@@ -14,11 +13,11 @@ import config.subsystems.Extend;
 import config.subsystems.Intake;
 import config.subsystems.Light;
 import config.subsystems.Outtake;
-import config.vision.limelight.Vision;
+import config.vision.limelight.old.OldVision;
 
 @TeleOp(group = "Tests", name = "Vision Test")
 public class VisionTest extends OpMode {
-    Vision v;
+    OldVision v;
     Follower f;
     Extend e;
     Intake i;
@@ -32,7 +31,7 @@ public class VisionTest extends OpMode {
     @Override
     public void init() {
         f = new Follower(hardwareMap, FConstants.class, LConstants.class);
-        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f);
+        v = new OldVision(hardwareMap, telemetry, new int[]{1, 2}, f);
         e = new Extend(hardwareMap, telemetry);
         i = new Intake(hardwareMap, telemetry);
         j = new Light(hardwareMap, telemetry);

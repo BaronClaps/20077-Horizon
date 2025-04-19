@@ -33,8 +33,8 @@ public class Outtake {
     public RotateState rotateState;
     public PivotState pivotState;
     private Telemetry telemetry;
-    private Timer specScoreTimer = new Timer();
-    private int specGrabState = -1;
+    private Timer specGrabAutoTimer = new Timer(), specGrabTimer = new Timer();
+    private int specGrabState = -1, specGrabAutoState = -1;
 
     public Outtake(HardwareMap hardwareMap, Telemetry telemetry) {
         grab = hardwareMap.get(Servo.class, "oG");
@@ -183,13 +183,13 @@ public class Outtake {
                 }
                 break;
             case 1:
-                if(specScoreTimer.getElapsedTimeSeconds() > 0.2) {
+                if(specGrabTimer.getElapsedTimeSeconds() > 0.2) {
                     setGrabState(GrabState.OPEN);
                     setSpecGrabState(2);
                 }
                 break;
             case 2:
-                if(specScoreTimer.getElapsedTimeSeconds() > 0.45) {
+                if(specGrabTimer.getElapsedTimeSeconds() > 0.45) {
                     setRotateState(RotateState.SPECIMENGRAB180);
                     setPivotState(PivotState.SPECIMENGRAB180);
                     setSpecGrabState(-1);
@@ -200,7 +200,7 @@ public class Outtake {
 
     public void setSpecGrabState(int i) {
         specGrabState = i;
-        specScoreTimer.resetTimer();
+        specGrabTimer.resetTimer();
     }
 
     public void startSpecGrab() {
@@ -208,42 +208,43 @@ public class Outtake {
     }
 
     public void specGrabAuto() {
-        switch(specGrabState) {
+        switch(specGrabAutoState) {
             case 0:
                 if(pivotState == PivotState.SPECIMENSCORE180) {
                     afterSpecScore();
-                    setSpecGrabState(1);
+                    setSpecGrabAutoState(1);
                 } else {
                     setRotateState(RotateState.SPECIMENGRAB180);
                     setPivotState(PivotState.SPECIMENGRAB180);
                     setGrabState(GrabState.OPEN);
-                    setSpecGrabState(-1);
+                    setSpecGrabAutoState(-1);
                 }
                 break;
             case 1:
-                if(specScoreTimer.getElapsedTimeSeconds() > 0.2) {
+                if(specGrabAutoTimer.getElapsedTimeSeconds() > 0.1) {
                     setGrabState(GrabState.OPEN);
-                    setSpecGrabState(2);
+                    setSpecGrabAutoState(2);
                 }
                 break;
             case 2:
-                if(specScoreTimer.getElapsedTimeSeconds() > 0.18) {
+                if(specGrabAutoTimer.getElapsedTimeSeconds() > 0.18) {
                     setRotateState(RotateState.SPECIMENGRAB180);
                     setPivotState(PivotState.SPECIMENGRAB180);
-                    setSpecGrabState(-1);
+                    setSpecGrabAutoState(-1);
                 }
                 break;
         }
     }
 
     public void setSpecGrabAutoState(int i) {
-        specGrabState = i;
-        specScoreTimer.resetTimer();
+        specGrabAutoState = i;
+        specGrabAutoTimer.resetTimer();
     }
 
     public void startSpecGrabAuto() {
         setSpecGrabAutoState(0);
     }
+
 
     public void preload() {
         setRotateState(RotateState.SPECIMENSCORE180);

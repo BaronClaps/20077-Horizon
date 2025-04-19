@@ -8,14 +8,14 @@ import config.core.Robot;
 import config.core.paths.SevenSpec;
 import config.core.paths.SixSpecPush;
 
-public class AlignSixSpecPush extends CommandBase {
+public class CAlignSevenSpecFirst extends CommandBase {
     private final Robot robot;
 
     private int state = 0;
     private Timer timer = new Timer();
     private ManualPose manualPose;
 
-    public AlignSixSpecPush(Robot robot, ManualPose manualPose) {
+    public CAlignSevenSpecFirst(Robot robot, ManualPose manualPose) {
         this.robot = robot;
         this.manualPose = manualPose;
     }
@@ -30,9 +30,10 @@ public class AlignSixSpecPush extends CommandBase {
         robot.getT().addData("a state", state);
         robot.getT().update();
         switch (state) {
-            case 1://robot.getV().getBestDetectionAngle());
-                SixSpecPush.sub2 = manualPose.getPose().copy();
-                robot.getF().followPath(SixSpecPush.sub2());
+            case 1:
+                //robot.getV().getBestDetectionAngle());
+                SevenSpec.sub2 = manualPose.getPose().copy();
+                robot.getF().followPath(SevenSpec.sub2());
                 setState(2);
                 break;
             case 2:
