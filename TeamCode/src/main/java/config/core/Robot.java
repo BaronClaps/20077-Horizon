@@ -35,21 +35,23 @@ public class Robot {
     private ManualInput m;
     private OldVision v;
     private Opmode op = TELEOP;
+    private boolean r = true;
     public static Pose autoEndPose = new Pose();
 
     public Pose s = new Pose();
     public double speed = 0.9;
-    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, aFGTimer, aInitLoopTimer, sTTimer, fSATimer;
-    public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, aFGState = -1, specTransferState = -1, fSAState = -1;
+    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, aFGTimer, aInitLoopTimer, sTTimer, fSATimer, sRTimer;
+    public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, aFGState = -1, specTransferState = -1, fSAState = -1, sRState = -1, hState = -1;
     private boolean aInitLoop, frontScore = false, backScore = true, automationActive = false;
 
-    public Robot(HardwareMap h, Telemetry t, Gamepad g1a, Gamepad g2a, Alliance a, Pose startPose) {
+    public Robot(HardwareMap h, Telemetry t, Gamepad g1a, Gamepad g2a, Alliance a, Pose startPose, boolean robotCentric) {
         this.op = TELEOP;
         this.h = h;
         this.t = t;
         this.g1a = g1a;
         this.g2a = g2a;
         this.a = a;
+        this.r = robotCentric;
 
         f = new Follower(this.h, FConstants.class, LConstants.class);
         f.setStartingPose(startPose);
@@ -73,6 +75,7 @@ public class Robot {
         aFGTimer = new Timer();
         sTTimer = new Timer();
         fSATimer = new Timer();
+        sRTimer = new Timer();
     }
 
     public Robot(HardwareMap h, Telemetry t, Alliance a, Pose startPose) {
@@ -104,6 +107,7 @@ public class Robot {
         aInitLoopTimer = new Timer();
         sTTimer = new Timer();
         fSATimer = new Timer();
+        sRTimer = new Timer();
 
         aInitLoopTimer.resetTimer();
         aInitLoop = false;
@@ -141,6 +145,7 @@ public class Robot {
         aInitLoopTimer = new Timer();
         sTTimer = new Timer();
         fSATimer = new Timer();
+        sRTimer = new Timer();
 
         aInitLoopTimer.resetTimer();
         aInitLoop = false;
@@ -177,11 +182,11 @@ public class Robot {
     }
 
     public void tPeriodic() {
-        updateControls();
         submersible();
         transfer();
         specTransfer();
         frontScoreAfter();
+        scoreRelease();
 
         e.periodic();
         l.periodic();
@@ -204,7 +209,7 @@ public class Robot {
         autoEndPose = f.getPose();
     }
 
-    public void updateControls() {
+    public void dualControls() {
         p1.copy(g1);
         p2.copy(g2);
         g1.copy(g1a);
@@ -247,7 +252,10 @@ public class Robot {
             e.toZero();
 
         if (g2.a && !p2.a)
-            o.switchGrabState();
+            if(getO().pivotState.equals(Outtake.PivotState.HALFSCORE))
+                startScoreRelease();
+            else
+                o.switchGrabState();
 
         if (g2.y && !p2.y) {
             o.transfer();
@@ -332,8 +340,129 @@ public class Robot {
         if (g2.back) {
             i.drag();
         }
+
+        if (g1.options && !p1.options) {
+            r = !r;
+        }
         
-        f.setTeleOpMovementVectors(flip * -g1.left_stick_y * speed, flip * -g1.left_stick_x * speed, -g1.right_stick_x * speed * 0.5, true);
+        f.setTeleOpMovementVectors(flip * -g1.left_stick_y * speed, flip * -g1.left_stick_x * speed, -g1.right_stick_x * speed * 0.5, r);
+    }
+
+    public void soloControls() {
+        speed = 0.9;
+
+        p1.copy(g1);
+        p2.copy(g2);
+        g1.copy(g1a);
+        g2.copy(g2a);
+
+        if (automationActive) {
+            if (g1.back && !p1.back) {
+                automationActive = false;
+            }
+            return;
+        }
+
+        if (g2.dpad_down && !p2.dpad_down) {
+            if (hState == -1) {
+                hState = 1;
+            }
+
+            if (hState == 2) {
+                hState = 3;
+            }
+
+            if (hState == 3) {
+                hState = -1;
+            }
+        }
+
+        if (g1.a && !p1.a)
+            j.switchI();
+
+        if (g2.right_trigger > 0.1 && !(p2.right_trigger > 0.1))
+            e.switchExtendState();
+
+        if (g2.a && !p2.a)
+            if(getO().pivotState.equals(Outtake.PivotState.HALFSCORE))
+                startScoreRelease();
+            else
+                o.switchGrabState();
+
+        if (g2.y && !p2.y) {
+            o.transfer();
+            i.hover();
+            l.toZero();
+        }
+
+        if (g2.x && !p2.x) {
+            startSpecTransfer();
+        }
+
+        if (g2.dpad_left && !p2.dpad_left) {
+            if (!backScore) {
+                o.specimenScore180();
+                i.specimen();
+                backScore = true;
+            } else {
+                o.startSpecGrab();
+                i.specimen();
+                backScore = false;
+            }
+        }
+
+        if (g2.dpad_right && !p2.dpad_right) {
+            if (!frontScore) {
+                o.specimenScore0();
+                getL().toChamber();
+                i.hover();
+                frontScore = true;
+            } else {
+                o.specimenScore0After();
+                startFrontScoreAfter();
+                frontScore = false;
+            }
+        }
+
+        if (g2.b && !p2.b)
+            startTransfer();
+
+        if (g2.dpad_up && !p2.dpad_up)
+            i.switchGrabState();
+
+        if (!(g2.left_trigger > 0.1) && p2.left_trigger > 0.1)
+            startSubmersible();
+
+        if ((g2.left_trigger > 0.1) && !(p2.left_trigger > 0.1)) {
+            i.cloud();
+            i.open();
+        }
+
+        if (g2.left_bumper && !p2.left_bumper)
+            i.rotateCycleLeft();
+
+        if (g2.right_bumper && !p2.right_bumper)
+            i.rotateCycleRight();
+
+        if (g2.left_stick_button)
+            f.setPose(new Pose(f.getPose().getX(), f.getPose().getY(), 0));
+
+
+        if (g2.right_stick_button)
+            o.specimenGrab0();
+
+        if (g2.back) {
+            i.drag();
+        }
+
+        if (getI().pivotState.equals(Intake.PivotState.CLOUD) || getO().pivotState.equals(Outtake.PivotState.SPECIMENGRAB180))
+            speed = 0.6;
+
+        if (g2.options && !p2.options) {
+            r = !r;
+        }
+
+        f.setTeleOpMovementVectors(-g2.left_stick_y * speed, -g2.left_stick_x * speed, -g2.right_stick_x * speed * 0.5, r);
     }
 
     public HardwareMap getH() {
@@ -425,6 +554,37 @@ public class Robot {
         flip = 1;
     }
 
+    private void scoreRelease() {
+        switch (sRState) {
+            case 1:
+                o.score();
+                setScoreReleaseState(2);
+                break;
+            case 2:
+                if (sRTimer.getElapsedTimeSeconds() > 0.2) {
+                    o.open();
+                    setScoreReleaseState(3);
+                }
+                break;
+            case 3:
+                if (sRTimer.getElapsedTimeSeconds() > 0.4) {
+                    getL().toZero();
+                    getO().transfer();
+                    getI().hover();
+                    setScoreReleaseState(-1);
+                }
+                break;
+        }
+    }
+
+    public void setScoreReleaseState(int x) {
+        sRState = x;
+        sRTimer.resetTimer();
+    }
+
+    public void startScoreRelease() {
+        setScoreReleaseState(1);
+    }
 
     private void transfer() {
         t.addData("Transfer State", tState);
@@ -467,8 +627,8 @@ public class Robot {
                 break;
             case 5:
                 if (tTimer.getElapsedTimeSeconds() > 0.2) {
-                    l.pidOff();
-                    o.score();
+                    l.toHighBucket();
+                    o.halfScore();
                     i.hover();
                     setTransferState(-1);
                 }
@@ -627,6 +787,21 @@ public class Robot {
 
     public void startFrontScoreAfter() {
         setFrontScoreAfterState(1);
+    }
+
+    public void hang() {
+        switch (hState) {
+            case 1:
+                getO().transfer();
+                getI().specimen();
+                getE().toZero();
+                getL().toHang();
+                hState = 2;
+                break;
+            case 3:
+                l.manual(1,0);
+                break;
+        }
     }
 
 

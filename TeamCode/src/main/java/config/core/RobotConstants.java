@@ -54,6 +54,7 @@ public class RobotConstants {
     public static int liftToHighBucket = 2100;
     public static int liftToTransfer = 200;
     public static int liftToPark = 925;
+    public static int liftToHang = 1250;
 
     // Extend Positions
     public static double extendZero = 0.5075;

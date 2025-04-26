@@ -1,6 +1,7 @@
 package config.subsystems;
 
 import static config.core.RobotConstants.liftAfterHighChamber;
+import static config.core.RobotConstants.liftToHang;
 import static config.core.RobotConstants.liftToHighBucket;
 import static config.core.RobotConstants.liftToHighChamber;
 import static config.core.RobotConstants.liftToPark;
@@ -128,6 +129,7 @@ public class Lift {
     public void toPark() {
         setTarget(liftToPark);
     }
+    public void toHang() { setTarget(liftToHang);}
 
     public boolean roughlyAtTarget() {
         return Math.abs(getPos() - target) < 25;

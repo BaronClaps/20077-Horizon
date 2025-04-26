@@ -8,14 +8,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import config.core.util.Alliance;
 import config.core.Robot;
 
-@TeleOp(name = "Drive", group = "...Sigma")
-public class Drive extends OpMode {
+@TeleOp(name = "Dual Drive", group = "...Sigma")
+public class DualDrive extends OpMode {
 
     Robot r;
 
     @Override
     public void init() {
-        r = new Robot(hardwareMap, telemetry, gamepad1 , gamepad2, Alliance.BLUE, autoEndPose);
+        r = new Robot(hardwareMap, telemetry, gamepad1 , gamepad2, Alliance.BLUE, autoEndPose, true);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Drive extends OpMode {
 
     @Override
     public void loop() {
-        r.updateControls();
+        r.dualControls();
         r.tPeriodic();
     }
 }

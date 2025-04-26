@@ -79,6 +79,14 @@ public class Extend {
         return pos;
     }
 
+    public void switchExtendState() {
+        if (state == ExtendState.FULL) {
+            toZero();
+        } else {
+            toFull();
+        }
+    }
+
     public ExtendState getState() {
         return state;
     }
